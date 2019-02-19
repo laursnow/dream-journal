@@ -12,7 +12,11 @@ const UserSchema = mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    validate: { function(username) {
+      validator.isAlphanumeric(username); },
+    message: 'Username can only contain letters and numbers'
+    }
   },
   password: {
     type: String,
@@ -36,7 +40,7 @@ const UserSchema = mongoose.Schema({
 UserSchema.methods.serialize = function() {
   return {
     username: this.username || '',
-    firstName: this.firstName || '',
+    email: this.email || '',
   };
 };
 
