@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const { Entry } = require('./models');
-var router = express.Router();
+const router = express.Router();
 
 router.use(morgan('common'));
 router.use(express.json());
@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const requiredFields = ['placeName', 'address'];
+  const requiredFields = ['title', 'content'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -45,13 +45,11 @@ router.post('/', (req, res) => {
 
   Entry
     .create({
-      placeName: req.body.placeName,
-      address: req.body.address,
-      loc: req.body.loc,
-      comments: req.body.comments,
-      date: req.body.date,
-      picture: req.body.picture,
-      category: req.body.category,
+      title: req.body.title,
+      content: req.body.content,
+      contentDate: req.body.contentDate,
+      postDate: req.body.postDate,
+      tags: req.body.tags,
     })
     .then(entry => res.status(201).json(entry.serialize()))
     .catch(err => {
@@ -69,7 +67,7 @@ router.put('/:id', (req, res) => {
   }
 
   const updated = {};
-  const updateableFields = ['placeName', 'address', 'loc', 'comments', 'date', 'category'];
+  const updateableFields = ['title', 'content', 'contentDate', 'postDate', 'tags'];
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];

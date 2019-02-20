@@ -3,30 +3,25 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const entrySchema = mongoose.Schema({
-  placeName: {type: String, required: true},
-  address: {type: String, required: true},
-  loc: {
-    type: { type: String },
-    coordinates: [Number],
-  },
-  comments: [{ body: String, date: Date }],
-  date: { type: Date, default: Date.now },
-  picture: {type: String},
-  category: [{type: String}] 
-});
 
+
+
+const entrySchema = mongoose.Schema({
+  title: {type: String, required: true},
+  content: {type: String, required: true},
+  contentDate: { type: Date },
+  postDate: { type: Date, default: Date.now },
+  tags: [String] 
+});
 
 entrySchema.methods.serialize = function() {
   return {
     id: this._id,
-    placeName: this.placeName,
-    address: this.address,
-    loc: this.loc,
-    comments: this.comments,
-    date: this.date,
-    picture: this.picture,
-    category: this.category,
+    title: this.title,
+    content: this.body,
+    contentDate: this.contentDate,
+    postDate: this.postDate,
+    tags: this.tags,
   };
 };
 
