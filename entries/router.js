@@ -5,17 +5,16 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const { Entry } = require('./models');
+var router = express.Router();
 
-const app = express();
+router.use(morgan('common'));
+router.use(express.json());
 
-app.use(morgan('common'));
-app.use(express.json());
-
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   Entry
     .find()
-    .then(posts => {
-      res.json(posts.map(post => post.serialize()));
+    .then(entries => {
+      res.json(entries.map(entries => entries.serialize()));
     })
     .catch(err => {
       console.error(err);
@@ -23,17 +22,17 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   Entry
     .findById(req.params.id)
-    .then(post => res.json(post.serialize()))
+    .then(entry => res.json(entry.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: 'something went horribly awry' });
     });
 });
 
-app.post('/', (req, res) => {
+router.post('/', (req, res) => {
   const requiredFields = ['placeName', 'address'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -62,21 +61,7 @@ app.post('/', (req, res) => {
 
 });
 
-
-app.delete('/', (req, res) => {
-  Entry
-    .findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.status(204).json({ message: 'success' });
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ error: 'something went terribly wrong' });
-    });
-});
-
-
-app.put('/', (req, res) => {
+router.put('/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -98,7 +83,7 @@ app.put('/', (req, res) => {
 });
 
 
-app.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   Entry
     .findByIdAndRemove(req.params.id)
     .then(() => {
@@ -108,6 +93,8 @@ app.delete('/:id', (req, res) => {
 });
 
 
-app.use('*', function (req, res) {
+router.use('*', function (req, res) {
   res.status(404).json({ message: 'Not Found' });
 });
+
+module.exports = router;
