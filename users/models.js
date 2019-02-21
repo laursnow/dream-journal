@@ -3,9 +3,36 @@
 'use strict';
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose'); 
-const validator = require('validator');
+var validate = require('mongoose-validator');
 
 mongoose.Promise = global.Promise;
+
+var usernameValidator = [
+  validate({
+    validator: 'isLength',
+    arguments: [3, 20],
+    message: 'Username should be between {ARGS[0]} and {ARGS[1]} characters',
+  }),
+  validate({
+    validator: 'isAlphanumeric',
+    message: 'Username should contain alpha-numeric characters only',
+  }),
+];
+
+var passValidator = [
+  validate({
+    validator: 'isLength',
+    arguments: [8, 72],
+    message: 'Username should be between {ARGS[0]} and {ARGS[1]} characters'
+  })
+];
+
+var emailValidator = [
+  validate({
+    validator: 'isEmail',
+    message: 'Please enter valid e-mail'
+  })
+];
 
 
 const UserSchema = mongoose.Schema({
@@ -13,19 +40,12 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    validate: { function(username) {
-      validator.isAlphanumeric(username).isLength(username, {min: 3}); },
-    message: 'Username can only contain letters and numbers and must be a minimum of 3 characters long'
-    }
+    validate: usernameValidator
   },
   password: {
     type: String,
     required: true,
-    validate: { function(password) {
-      validator.isLength(password, {min: 8, max: 72});
-    },
-    message: 'Password must be 8-72 characters long'
-    }
+    validate: passValidator
   },
   email: {
     type: String,
@@ -33,13 +53,8 @@ const UserSchema = mongoose.Schema({
     lowercase: true,
     unique: true,
     required: 'Email address is required',
-    validate: { function(email) {
-      validator.isEmail(email); 
-    },
-    message: 'Please enter valid e-mail',
-    }
-  }
-},
+    validate: emailValidator
+  }},
 { collection: 'users'});
 
 

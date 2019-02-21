@@ -1,5 +1,4 @@
 'use strict';
-const {User} = require('../users/models');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -10,7 +9,7 @@ const entrySchema = mongoose.Schema({
   contentDate: { type: Date },
   postDate: { type: Date, default: Date.now },
   tags: [String], 
-  user: [User]
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 }, { collection: 'entries'});
 
 entrySchema.methods.serialize = function() {

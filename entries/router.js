@@ -9,7 +9,7 @@ const entriesRouter = express.Router();
 const app = express();
 entriesRouter.use(morgan('common'));
 entriesRouter.use(express.json());
-const userRouter = require('./users/router');
+const userRouter = require('../users/router');
 app.use('/users', userRouter);
 
 entriesRouter.get('/', (req, res) => {
