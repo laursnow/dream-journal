@@ -14,13 +14,18 @@ const UserSchema = mongoose.Schema({
     required: true,
     unique: true,
     validate: { function(username) {
-      validator.isAlphanumeric(username); },
-    message: 'Username can only contain letters and numbers'
+      validator.isAlphanumeric(username).isLength(username, {min: 3}); },
+    message: 'Username can only contain letters and numbers and must be a minimum of 3 characters long'
     }
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    validate: { function(password) {
+      validator.isLength(password, {min: 8, max: 72});
+    },
+    message: 'Password must be 8-72 characters long'
+    }
   },
   email: {
     type: String,
@@ -34,13 +39,14 @@ const UserSchema = mongoose.Schema({
     message: 'Please enter valid e-mail',
     }
   }
-});
+},
+{ collection: 'users'});
 
 
 UserSchema.methods.serialize = function() {
   return {
-    username: this.username || '',
-    email: this.email || '',
+    username: this.username,
+    email: this.email
   };
 };
 

@@ -10,12 +10,13 @@ app.use(morgan('common'));
 
 const entriesRouter = require('./entries/router');
 app.use('/entries', entriesRouter);
-
+const userRouter = require('./users/router');
+app.use('/users', userRouter);
 mongoose.Promise = global.Promise;
 
 const { PORT, DATABASE_URL } = require('./config');
 
-
+passport.use(localStrategy);
 
 let server;
 

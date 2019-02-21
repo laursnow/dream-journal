@@ -5,12 +5,14 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const { Entry } = require('./models');
-const router = express.Router();
+const entriesRouter = express.Router();
+const app = express();
+entriesRouter.use(morgan('common'));
+entriesRouter.use(express.json());
+const userRouter = require('./users/router');
+app.use('/users', userRouter);
 
-router.use(morgan('common'));
-router.use(express.json());
-
-router.get('/', (req, res) => {
+entriesRouter.get('/', (req, res) => {
   Entry
     .find()
     .then(entries => {
@@ -22,7 +24,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
+entriesRouter.get('/:id', (req, res) => {
   Entry
     .findById(req.params.id)
     .then(entry => res.json(entry.serialize()))
@@ -32,7 +34,9 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+let userInfo;
+
+entriesRouter.post('/', (req, res) => {
   const requiredFields = ['title', 'content'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -42,6 +46,10 @@ router.post('/', (req, res) => {
       return res.status(400).send(message);
     }
   }
+  
+  userRouter.get('../users', (req, res) => {
+    userInfo = req.user;
+  });
 
   Entry
     .create({
@@ -50,6 +58,7 @@ router.post('/', (req, res) => {
       contentDate: req.body.contentDate,
       postDate: req.body.postDate,
       tags: req.body.tags,
+      user: userInfo
     })
     .then(entry => res.status(201).json(entry.serialize()))
     .catch(err => {
@@ -59,7 +68,7 @@ router.post('/', (req, res) => {
 
 });
 
-router.put('/:id', (req, res) => {
+entriesRouter.put('/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -81,7 +90,7 @@ router.put('/:id', (req, res) => {
 });
 
 
-router.delete('/:id', (req, res) => {
+entriesRouter.delete('/:id', (req, res) => {
   Entry
     .findByIdAndRemove(req.params.id)
     .then(() => {
@@ -91,8 +100,8 @@ router.delete('/:id', (req, res) => {
 });
 
 
-router.use('*', function (req, res) {
+entriesRouter.use('*', function (req, res) {
   res.status(404).json({ message: 'Not Found' });
 });
 
-module.exports = router;
+module.exports = entriesRouter;
