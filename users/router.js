@@ -89,13 +89,22 @@ userRouter.post('/', jsonParser, (req, res) => {
           return res.status(201).json(user.serialize());
         })
         .catch(err => {
+          console.log(err);
           // Forward validation errors on to the client, otherwise give a 500
           // error because something unexpected has happened
-          if (err.reason === 'ValidationError') {
-            return res.status(err.code).json(err);
+          if (err.name === 'ValidationError') {
+            res.status(412).json(err);
           }
           res.status(500).json({code: 500, message: 'Internal server error'});
         });
+    })
+    .catch(err => {
+      // Forward validation errors on to the client, otherwise give a 500
+      // error because something unexpected has happened
+      if (err.reason === 'ValidationError') {
+        return res.status(err.code).json(err);
+      }
+      res.status(500).json({code: 500, message: 'Internal server error'});
     });
 });
 

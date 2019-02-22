@@ -11,6 +11,9 @@ entriesRouter.use(morgan('common'));
 entriesRouter.use(express.json());
 const userRouter = require('../users/router');
 app.use('/users', userRouter);
+const passport = require('passport');
+
+
 
 entriesRouter.get('/', (req, res) => {
   Entry
@@ -25,6 +28,7 @@ entriesRouter.get('/', (req, res) => {
 });
 
 entriesRouter.get('/:id', (req, res) => {
+  console.log(req.user);
   Entry
     .findById(req.params.id)
     .then(entry => res.json(entry.serialize()))
