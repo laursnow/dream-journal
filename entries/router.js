@@ -35,8 +35,6 @@ entriesRouter.get('/:id', (req, res) => {
     });
 });
 
-let userInfo;
-
 entriesRouter.post('/', (req, res) => {
   const requiredFields = ['title', 'content'];
   for (let i = 0; i < requiredFields.length; i++) {
@@ -48,10 +46,6 @@ entriesRouter.post('/', (req, res) => {
     }
   }
   
-  userRouter.get('../users', (req, res) => {
-    userInfo = req.user;
-  });
-
   Entry
     .create({
       title: req.body.title,
@@ -59,8 +53,9 @@ entriesRouter.post('/', (req, res) => {
       contentDate: req.body.contentDate,
       postDate: req.body.postDate,
       tags: req.body.tags,
-      user: userInfo
-    })
+      user: req.user
+    });
+  console.log(`entry ${req.user}`)
     .then(entry => res.status(201).json(entry.serialize()))
     .catch(err => {
       console.error(err);
