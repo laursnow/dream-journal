@@ -93,7 +93,7 @@ userRouter.post('/', jsonParser, (req, res) => {
           // Forward validation errors on to the client, otherwise give a 500
           // error because something unexpected has happened
           if (err.name === 'ValidationError') {
-            res.status(412).json(err);
+            res.status(412).json(err.message);
           }
           res.status(500).json({code: 500, message: 'Internal server error'});
         });

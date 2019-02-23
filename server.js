@@ -7,8 +7,7 @@ const passport = require('passport');
 const app = express();
 app.use(morgan('common'));
 
-const jwtAuth = passport.authenticate('jwt', {session: false});
-app.use(jwtAuth);
+
 
 const entriesRouter = require('./entries/router');
 app.use('/entries', entriesRouter);

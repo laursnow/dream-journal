@@ -7,10 +7,18 @@ mongoose.Promise = global.Promise;
 const { Entry } = require('./models');
 const entriesRouter = express.Router();
 const app = express();
+const passport = require('passport');
+
 entriesRouter.use(morgan('common'));
 entriesRouter.use(express.json());
 const userRouter = require('../users/router');
 app.use('/users', userRouter);
+
+const {localStrategy, jwtStrategy } = require('../auth');
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+const jwtAuth = passport.authenticate('jwt', {session: false});
+app.use(jwtAuth);
 
 entriesRouter.get('/', (req, res) => {
   Entry
@@ -35,7 +43,7 @@ entriesRouter.get('/:id', (req, res) => {
     });
 });
 
-entriesRouter.post('/', (req, res) => {
+entriesRouter.post('/', jwtAuth, (req, res) => {
   const requiredFields = ['title', 'content'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -53,15 +61,14 @@ entriesRouter.post('/', (req, res) => {
       contentDate: req.body.contentDate,
       postDate: req.body.postDate,
       tags: req.body.tags,
-      user: req.user
-    });
-  console.log(`entry ${req.user}`)
+      user: req.body._id
+    })
     .then(entry => res.status(201).json(entry.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
-
+   console.log(`entry ${req.user}`);
 });
 
 entriesRouter.put('/:id', (req, res) => {
