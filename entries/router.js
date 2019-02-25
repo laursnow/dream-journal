@@ -8,7 +8,7 @@ const { Entry } = require('./models');
 const entriesRouter = express.Router();
 const app = express();
 const passport = require('passport');
-
+const {User} = require('../users/models');
 entriesRouter.use(morgan('common'));
 entriesRouter.use(express.json());
 const userRouter = require('../users/router');
@@ -53,7 +53,28 @@ entriesRouter.post('/', jwtAuth, (req, res) => {
       return res.status(400).send(message);
     }
   }
+
+
+
+
+  // const dream = new Entry({
+  //   _id: new mongoose.Types.ObjectId(),
+  //   title: req.body.title,
+  //   content: req.body.content,
+  //   contentDate: req.body.contentDate,
+  //   postDate: req.body.postDate,
+  //   tags: req.body.tags,
+  //   user: req.user.username,
+  // });
   
+  // dream.save(function (err) {
+  //   if (err) return handleError(err);
+
+  User.find({username: req.user.username}).then(result => { const obj = result; });
+
+  // });
+
+
   Entry
     .create({
       title: req.body.title,
@@ -61,14 +82,14 @@ entriesRouter.post('/', jwtAuth, (req, res) => {
       contentDate: req.body.contentDate,
       postDate: req.body.postDate,
       tags: req.body.tags,
-      user: req.body._id
+      user: obj
     })
     .then(entry => res.status(201).json(entry.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
-   console.log(`entry ${req.user}`);
+    console.log(userObjId);
 });
 
 entriesRouter.put('/:id', (req, res) => {

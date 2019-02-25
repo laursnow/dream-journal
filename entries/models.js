@@ -2,14 +2,13 @@
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-
 const entrySchema = mongoose.Schema({
   title: {type: String, required: true},
   content: {type: String, required: true},
   contentDate: { type: Date },
   postDate: { type: Date, default: Date.now },
   tags: [String], 
-  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true, required: true}
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 }, { collection: 'entries'});
 
 entrySchema.methods.serialize = function() {
@@ -23,6 +22,7 @@ entrySchema.methods.serialize = function() {
     user: this.user
   };
 };
+
 
 entrySchema.plugin(require('mongoose-autopopulate'));
 const Entry = mongoose.model('Entry', entrySchema);
