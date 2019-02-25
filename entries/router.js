@@ -20,6 +20,17 @@ passport.use(jwtStrategy);
 const jwtAuth = passport.authenticate('jwt', {session: false});
 app.use(jwtAuth);
 
+// Entry => ({
+//   create: async ctx => {
+//     ctx.body = await Entry.create(ctx.request.body)
+//   },
+
+//   all: async ctx => {
+//     ctx.body = await Entry.find({})
+//       .populate('users')
+//   }
+// })
+
 entriesRouter.get('/', (req, res) => {
   Entry
     .find()
@@ -43,6 +54,8 @@ entriesRouter.get('/:id', (req, res) => {
     });
 });
 
+
+
 entriesRouter.post('/', jwtAuth, (req, res) => {
   const requiredFields = ['title', 'content'];
   for (let i = 0; i < requiredFields.length; i++) {
@@ -54,27 +67,6 @@ entriesRouter.post('/', jwtAuth, (req, res) => {
     }
   }
 
-
-
-
-  // const dream = new Entry({
-  //   _id: new mongoose.Types.ObjectId(),
-  //   title: req.body.title,
-  //   content: req.body.content,
-  //   contentDate: req.body.contentDate,
-  //   postDate: req.body.postDate,
-  //   tags: req.body.tags,
-  //   user: req.user.username,
-  // });
-  
-  // dream.save(function (err) {
-  //   if (err) return handleError(err);
-
-  User.find({username: req.user.username}).then(result => { const obj = result; });
-
-  // });
-
-
   Entry
     .create({
       title: req.body.title,
@@ -82,14 +74,24 @@ entriesRouter.post('/', jwtAuth, (req, res) => {
       contentDate: req.body.contentDate,
       postDate: req.body.postDate,
       tags: req.body.tags,
-      user: obj
     })
     .then(entry => res.status(201).json(entry.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
-    console.log(userObjId);
+  User
+    .find({username: req.user.username})
+    .then(result => { return result[0]._id; })
+    .then(id => {
+      return Entry.findOneAndUpdate({title: req.body.title}, {user: id});
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: 'Something went wrong' });
+    });
+  Entry.find({title: req.body.title})
+    .populate('User');
 });
 
 entriesRouter.put('/:id', (req, res) => {

@@ -8,7 +8,7 @@ const entrySchema = mongoose.Schema({
   contentDate: { type: Date },
   postDate: { type: Date, default: Date.now },
   tags: [String], 
-  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true}
 }, { collection: 'entries'});
 
 entrySchema.methods.serialize = function() {
