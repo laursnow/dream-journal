@@ -3,6 +3,7 @@ body {
     background-color: black;
     background-position: center;
     background-repeat: no-repeat;
+    background-size: 70%;
   }
 
   h1 {
@@ -75,7 +76,7 @@ a, a:visited {
 }
 
 a:hover, a:active {
-    color: white;
+    color: rgba(213, 166, 132);
 }
 
 .button {

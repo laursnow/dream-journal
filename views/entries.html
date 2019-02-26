@@ -5,23 +5,41 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DreamJournal</title>
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Mukta" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <link href="journal.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
 
 	<header role="banner">
-		<h1>Dream Journal</h1>
-		<nav role="navigation">
-			<ul class="navgroup" id="hidden">
+		<div class="nav-container">
+		<nav role="navigation">	
+			<ul class="navgroup">
+			    <li><h1>Journal Entries</h1></li>
+				<li><a href="#">New Post</a></li>
+				<li><a href="#">Sign Out</a></li>
 			</ul>
 		</nav>
+		</div>
 	</header>
 	
 	<main role="main">    
-        <div class="login-container">
-    </div>
-	</main>
+		<div class="entry-bg">
+			<div class="post-container">
+			<form action="/" class="js-post-form" role="post">
+					<fieldset>
+						<legend>New Post:</legend>
+					  <label for="username">Title: 
+						<input type="text" id="title" name="title" class="post-field" required></label>
+					  <label for="dreamentry">Entry: 
+						<textarea id="dreamentry" name="dreamentry" class="post-field" required></textarea></label>
+					  <label for="dreamdate">Date of Dream: 
+						<input type="text" id="dreamdate" name="dreamdate" class="post-field" required></label>
+					 <label for="tags">Tags: 
+						<input type="text" id="tags" name="tags" class="post-field" required></label>
+						<button class="button" id="login">Record Entry</button>
+		</div></div>
+		</main>
+	
 
 	<footer>
 		<div class="footer-info">

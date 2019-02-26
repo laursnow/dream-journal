@@ -1,36 +1,69 @@
 body {
-    background-image: url("./images/login-background-color.png");
+    /* background-image: url("./images/entries-bg2.png"); */
     background-color: black;
-    background-position: center;
+    /* background-position: bottom;
     background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 101%; */
   }
+
+.nav-container {
+  height: 100px;
+  margin-top: -50px;
+   }
 
   h1 {
-    display: block;
     font-family: 'Amatic SC', cursive;
-    font-size: 100px;
+    font-size: 65px;
+    color: white;    
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    top: -60px;
+    display: inline-block;
+  }
+
+  .navgroup li {
+    display: inline-block;
+    font-family: 'Amatic SC', cursive;
+    font-size: 50px;
     color: white;
-    text-align: center;
-    margin-top: 50px;
+    padding-left: 15px;
   }
 
-  main {
+main {
     text-align: center;
-  }
+}
 
-  .login-container {
-      display: inline-block;
-      position: relative;
-      border: 1px solid  rgba(0, 0, 0, 0.85);
-      background-color: rgba(0, 0, 0, 0.85);
-      color: white;
-      font-family: 'Mukta', sans-serif;
-      width: 36%;
-      top:-60px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 5px 5px 5px 5px;
-  }
+.entry-bg {
+    background-image: url("./images/login-background-color.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 200%;  
+    display: inline-block;
+    position: relative;
+    width: 36%;
+    top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-container {
+    background-color: rgba(0, 0, 0, 0.65);
+    border: 1px solid white;
+    color: white;
+    font-family: 'Mukta', sans-serif;
+    padding-bottom: 20px;
+
+}
+
+#dreamentry {
+    height: 100px;
+}
 
 fieldset {
     border: 0px;
@@ -50,17 +83,19 @@ label {
     display: block;
 }
 
-input {
+input, textarea {
     display: block;
     margin: auto;
     font-family: 'Mukta', sans-serif;
-    color: white;
-    background-color: rgba(183, 171, 214, 0.55);
+    color: black;
+    background-color: rgba(183, 171, 214, 0.70);
     border: 0px solid rgba(255, 255, 255, 0.85);
-    width: 200px;
+    width: 500px;
     height: 40px;
     padding: 0px 0px 0px 0px;
 }
+
+
 
 input:focus, input:hover, input:active {
     border: 0px solid rgba(213, 166, 132);
@@ -70,11 +105,11 @@ a {
     text-decoration: none;
 }
 
-a, a:visited {
-    color:  rgba(183, 171, 214);
+a:hover, a:active {
+    color: rgba(213, 166, 132);
 }
 
-a:hover, a:active {
+a, a:visited {
     color: white;
 }
 

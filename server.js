@@ -6,9 +6,6 @@ const morgan = require('morgan');
 const passport = require('passport');
 const app = express();
 app.use(morgan('common'));
-
-
-
 const entriesRouter = require('./entries/router');
 app.use('/entries', entriesRouter);
 const userRouter = require('./users/router');
@@ -17,11 +14,17 @@ const authRouter = require('./auth/router');
 app.use('/auth', authRouter);
 mongoose.Promise = global.Promise;
 const {localStrategy, jwtStrategy } = require('./auth');
-
 const { PORT, DATABASE_URL } = require('./config');
-
 passport.use(localStrategy);
 passport.use(jwtStrategy);
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, 'views')));
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname + '/views/index.html'));
+});
+
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');

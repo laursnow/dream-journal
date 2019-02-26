@@ -90,8 +90,6 @@ entriesRouter.post('/', jwtAuth, (req, res) => {
       console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
-  Entry.find({title: req.body.title})
-    .populate('User');
 });
 
 entriesRouter.put('/:id', (req, res) => {
