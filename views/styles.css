@@ -1,9 +1,10 @@
 body {
     background-image: url("./images/login-background-color.png");
     background-color: black;
-    background-position: center;
+    background-position: 50% 150%;
     background-repeat: no-repeat;
-    background-size: 70%;
+    background-size: 52%;
+    background-attachment: fixed;
   }
 
   h1 {
@@ -12,7 +13,7 @@ body {
     font-size: 100px;
     color: white;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 62px;
   }
 
   main {
@@ -56,7 +57,7 @@ input {
     margin: auto;
     font-family: 'Mukta', sans-serif;
     color: white;
-    background-color: rgba(183, 171, 214, 0.55);
+    background-color: rgba(183, 171, 214, 0.50);
     border: 0px solid rgba(255, 255, 255, 0.85);
     width: 200px;
     height: 40px;
@@ -93,7 +94,7 @@ a:hover, a:active {
 }
 
 .button:hover, .button:focus {
-    background-color: rgba(183, 171, 214, 0.0);
+    background-color: rgba(0, 0, 0, 0.0);
     border: 1px solid rgba(183, 171, 214);
     color: rgba(183, 171, 214);
 }
