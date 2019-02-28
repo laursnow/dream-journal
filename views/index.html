@@ -11,9 +11,9 @@
 <body>
 
 	<header role="banner">
-    <h1 class="hidden" id="h1-login" class="hidden">Dream Journal</h1>
+    <h1 class="" id="h1-login">Dream Journal</h1>
     <div class="nav-container">
-        <nav role="navigation" class="">	
+        <nav role="navigation" class="hidden">	
           <ul class="navgroup">
               <li><h2>Journal Entries</h2></li>
               <li><a href="#">Sign Out</a></li>
@@ -25,7 +25,7 @@
 	</header>
 	
 	<main role="main">  
-    <section role="section" class="hidden" id="login-page">  
+    <section role="section" class="" id="login-page">  
       <div class="login-container">
         <form class="js-login-form" role="login">
                 <fieldset>
@@ -33,15 +33,16 @@
                   <label for="username">Username: 
                     <input type="text" id="username" name="username" class="login-field" required></label>
                   <label for="pass">Password: 
-                    <input type="text" id="pass" name="pass" class="login-field" required></label>
-                  </fieldset></form>
+                    <input type="password" id="pass" name="pass" class="login-field" required></label>
+                  </fieldset>
                     <button class="button" id="login">Login</button>
+                  </form>
         <p>First time user? <a href="#">Register.</a>
         Forgot login information? <a href="#">Click here.</a></p>
     </div>
   </section>
     
-  <section role="section" class="" id="entry-page">
+  <section role="section" class="hidden" id="entry-page">
 			<div class="post-container">
 			<form class="js-post-form" role="post">
 					<fieldset>
@@ -54,8 +55,9 @@
 						<input type="text" id="dreamdate" name="dreamdate" class="post-field" placeholder="mm/dd/yyyy" required></label>
 					 <label for="tags">Tags: 
             <input type="text" id="tags" name="tags" class="post-field" required placeholder="falling, rain, etc."></label>
-          </fieldset></form>
-						<button class="button" id="login">Record Entry</button>
+          </fieldset>
+            <button class="button" id="post">Record Entry</button>
+          </form>
 		</div>
   </section>
 	</main>

@@ -1,7 +1,7 @@
 header {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
 body {
@@ -35,38 +35,38 @@ h2 {
 }
 
 .nav-container {
-    overflow: hidden;
-    background-color: black;
-    font-family: "Amatic SC", cursive;
-    font-size: 50px;
-    color: white;
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    width: 100%;
-    height: 75px;
-    display: block;
-  }
-  
-  .nav-container ul {
-    color: #f2f2f2;
-    padding: 0px 16px;
-    list-style-type: none;
-    text-align: center;
-    top: 0px;
-  }
-  
-  .nav-container li {
-    float: right;
-    font-family: "Amatic SC", cursive;
-    font-size: 50px;
-    color: white;
-    padding: 25px 16px;
-  }
+  overflow: hidden;
+  background-color: black;
+  font-family: "Amatic SC", cursive;
+  font-size: 50px;
+  color: white;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 75px;
+  display: block;
+}
 
-  .nav-container ul li:first-child { 
-      float: left;
-     }
+.nav-container ul {
+  color: #f2f2f2;
+  padding: 0px 16px;
+  list-style-type: none;
+  text-align: center;
+  top: 0px;
+}
+
+.nav-container li {
+  float: right;
+  font-family: "Amatic SC", cursive;
+  font-size: 50px;
+  color: white;
+  padding: 25px 16px;
+}
+
+.nav-container ul li:first-child {
+  float: left;
+}
 
 main {
   text-align: center;
@@ -80,52 +80,49 @@ main {
   color: white;
   font-family: "Mukta", sans-serif;
   width: 36%;
-  top: -85px;
+  top: -65px;
   margin-left: auto;
   margin-right: auto;
   padding: 5px 5px 5px 5px;
 }
 
-
 .post-container {
-    display: inline-block;
-    position: relative;
-    border: 1px solid rgba(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.85);
-    color: white;
-    font-family: "Mukta", sans-serif;
-    width: 36%;
-    top: 125px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 5px 5px 20px 5px;
-  }
+  display: inline-block;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  font-family: "Mukta", sans-serif;
+  width: 36%;
+  top: 125px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px 5px 20px 5px;
+}
 
+.login-container input {
+  display: block;
+  margin: auto;
+  font-family: "Mukta", sans-serif;
+  color: white;
+  background-color: rgba(183, 171, 214, 0.5);
+  border: 0px solid rgba(255, 255, 255, 0.85);
+  width: 200px;
+  height: 40px;
+  padding: 0px 0px 0px 0px;
+}
 
-  .login-container input {
-    display: block;
-    margin: auto;
-    font-family: "Mukta", sans-serif;
-    color: white;
-    background-color: rgba(183, 171, 214, 0.5);
-    border: 0px solid rgba(255, 255, 255, 0.85);
-    width: 200px;
-    height: 40px;
-    padding: 0px 0px 0px 0px;
-  }
-
-  
 .post-container input {
-    display: block;
-    margin: auto;
-    font-family: "Mukta", sans-serif;
-    color: white;
-    background-color: rgba(183, 171, 214, 0.5);
-    border: 0px solid rgba(255, 255, 255, 0.85);
-    width: 400px;
-    height: 40px;
-    padding: 0px 0px 0px 0px;
-  }
+  display: block;
+  margin: auto;
+  font-family: "Mukta", sans-serif;
+  color: white;
+  background-color: rgba(183, 171, 214, 0.5);
+  border: 0px solid rgba(255, 255, 255, 0.85);
+  width: 400px;
+  height: 40px;
+  padding: 0px 0px 0px 0px;
+}
 
 fieldset {
   border: 0px;
@@ -202,5 +199,5 @@ a:active {
 }
 
 ::placeholder {
-    color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.85);
 }
