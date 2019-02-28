@@ -11,22 +11,53 @@
 <body>
 
 	<header role="banner">
-		<h1>Dream Journal</h1>
+    <h1 class="hidden" id="h1-login" class="hidden">Dream Journal</h1>
+    <div class="nav-container">
+        <nav role="navigation" class="">	
+          <ul class="navgroup">
+              <li><h2>Journal Entries</h2></li>
+              <li><a href="#">Sign Out</a></li>
+              <li><a href="#">New Post</a></li>
+              <li><a href="#">View Entries</a></li>
+          </ul>
+        </nav>
+        </div>
 	</header>
 	
-	<main role="main">    
-        <div class="login-container">
-        <form class="js-login-form" role="login" id="">
+	<main role="main">  
+    <section role="section" class="hidden" id="login-page">  
+      <div class="login-container">
+        <form class="js-login-form" role="login">
                 <fieldset>
-                    <legend>Enter username and password below:</legend>
+                    <legend>Enter login information below:</legend>
                   <label for="username">Username: 
                     <input type="text" id="username" name="username" class="login-field" required></label>
                   <label for="pass">Password: 
                     <input type="text" id="pass" name="pass" class="login-field" required></label>
+                  </fieldset></form>
                     <button class="button" id="login">Login</button>
         <p>First time user? <a href="#">Register.</a>
         Forgot login information? <a href="#">Click here.</a></p>
     </div>
+  </section>
+    
+  <section role="section" class="" id="entry-page">
+			<div class="post-container">
+			<form class="js-post-form" role="post">
+					<fieldset>
+						<legend>New Post:</legend>
+					  <label for="username">Title: 
+						<input type="text" id="title" name="title" class="post-field" required></label>
+					  <label for="dreamentry">Entry: 
+						<textarea id="dreamentry" name="dreamentry" class="post-field" required></textarea></label>
+					  <label for="dreamdate">Date of Dream: 
+						<input type="text" id="dreamdate" name="dreamdate" class="post-field" placeholder="mm/dd/yyyy" required></label>
+					 <label for="tags">Tags: 
+            <input type="text" id="tags" name="tags" class="post-field" required placeholder="falling, rain, etc."></label>
+          </fieldset></form>
+						<button class="button" id="login">Record Entry</button>
+		</div>
+  </section>
 	</main>
 
 	<footer>

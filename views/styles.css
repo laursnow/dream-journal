@@ -1,100 +1,206 @@
+header {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
 body {
-    background-image: url("./images/login-background-color.png");
+  background-image: url("./images/login-background-color.png");
+  background-color: black;
+  background-position: 50% 75px;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-attachment: fixed;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+h1 {
+  display: block;
+  font-family: "Amatic SC", cursive;
+  font-size: 100px;
+  color: white;
+  text-align: center;
+  margin-top: 118px;
+}
+
+h2 {
+  display: inline;
+  font-family: "Amatic SC", cursive;
+  font-size: 50px;
+  color: white;
+  text-align: center;
+  top: 0px;
+}
+
+.nav-container {
+    overflow: hidden;
     background-color: black;
-    background-position: 50% 150%;
-    background-repeat: no-repeat;
-    background-size: 52%;
-    background-attachment: fixed;
-  }
-
-  h1 {
-    display: block;
-    font-family: 'Amatic SC', cursive;
-    font-size: 100px;
+    font-family: "Amatic SC", cursive;
+    font-size: 50px;
     color: white;
-    text-align: center;
-    margin-top: 62px;
-  }
-
-  main {
-    text-align: center;
-  }
-
-  .login-container {
-      display: inline-block;
-      position: relative;
-      border: 1px solid  rgba(0, 0, 0, 0.85);
-      background-color: rgba(0, 0, 0, 0.85);
-      color: white;
-      font-family: 'Mukta', sans-serif;
-      width: 36%;
-      top:-60px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 5px 5px 5px 5px;
-  }
-
-fieldset {
-    border: 0px;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
-}
-
-legend {
-    padding: 10px 0px 10px 0px;
-}
-
-p {
-    padding: 2px 0px 0px 0px;
-}
-
-label {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 100%;
+    height: 75px;
     display: block;
+  }
+  
+  .nav-container ul {
+    color: #f2f2f2;
+    padding: 0px 16px;
+    list-style-type: none;
+    text-align: center;
+    top: 0px;
+  }
+  
+  .nav-container li {
+    float: right;
+    font-family: "Amatic SC", cursive;
+    font-size: 50px;
+    color: white;
+    padding: 25px 16px;
+  }
+
+  .nav-container ul li:first-child { 
+      float: left;
+     }
+
+main {
+  text-align: center;
 }
 
-input {
+.login-container {
+  display: inline-block;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  font-family: "Mukta", sans-serif;
+  width: 36%;
+  top: -85px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px 5px 5px 5px;
+}
+
+
+.post-container {
+    display: inline-block;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    font-family: "Mukta", sans-serif;
+    width: 36%;
+    top: 125px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 5px 20px 5px;
+  }
+
+
+  .login-container input {
     display: block;
     margin: auto;
-    font-family: 'Mukta', sans-serif;
+    font-family: "Mukta", sans-serif;
     color: white;
-    background-color: rgba(183, 171, 214, 0.50);
+    background-color: rgba(183, 171, 214, 0.5);
     border: 0px solid rgba(255, 255, 255, 0.85);
     width: 200px;
     height: 40px;
     padding: 0px 0px 0px 0px;
+  }
+
+  
+.post-container input {
+    display: block;
+    margin: auto;
+    font-family: "Mukta", sans-serif;
+    color: white;
+    background-color: rgba(183, 171, 214, 0.5);
+    border: 0px solid rgba(255, 255, 255, 0.85);
+    width: 400px;
+    height: 40px;
+    padding: 0px 0px 0px 0px;
+  }
+
+fieldset {
+  border: 0px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
 }
 
-input:focus, input:hover, input:active {
-    border: 0px solid rgba(213, 166, 132);
+legend {
+  padding: 10px 0px 10px 0px;
+}
+
+p {
+  padding: 2px 0px 0px 0px;
+}
+
+label {
+  display: block;
+}
+
+input:focus,
+input:hover,
+input:active {
+  border: 0px solid rgba(213, 166, 132);
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-a, a:visited {
-    color:  rgba(183, 171, 214);
+a,
+a:visited {
+  color: rgba(183, 171, 214);
 }
 
-a:hover, a:active {
-    color: rgba(213, 166, 132);
+a:hover,
+a:active {
+  color: rgba(213, 166, 132);
 }
 
 .button {
-    margin-top: 22px;
-    font-size: 16px;
-    font-family: 'Mukta', sans-serif;
-    color: black;
-    background-color: white;
-    border: 1px solid rgba(183, 171, 214);
-    width: 200px;
-    height: 44px;
-    -webkit-transition-duration: 0.2s; /* Safari */
-    transition-duration: 0.2s;
+  margin-top: 22px;
+  font-size: 16px;
+  font-family: "Mukta", sans-serif;
+  color: black;
+  background-color: white;
+  border: 1px solid rgba(183, 171, 214);
+  width: 200px;
+  height: 44px;
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
 }
 
-.button:hover, .button:focus {
-    background-color: rgba(0, 0, 0, 0.0);
-    border: 1px solid rgba(183, 171, 214);
-    color: rgba(183, 171, 214);
+.button:hover,
+.button:focus {
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(183, 171, 214);
+  color: rgba(183, 171, 214);
+}
+
+#dreamentry {
+  display: block;
+  margin: auto;
+  font-family: "Mukta", sans-serif;
+  color: white;
+  background-color: rgba(183, 171, 214, 0.5);
+  border: 0px solid rgba(255, 255, 255, 0.85);
+  width: 400px;
+  padding: 0px 0px 0px 0px;
+  height: 100px;
+}
+
+.hidden {
+  display: none;
+}
+
+::placeholder {
+    color: rgba(255, 255, 255, 0.85);
 }
