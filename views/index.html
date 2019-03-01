@@ -1,74 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DreamJournal</title>
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Mukta" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DreamJournal</title>
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Mukta" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet" type="text/css" />
 
 </head>
+
 <body>
 
-	<header role="banner">
+  <header role="banner">
     <h1 class="" id="h1-login">Dream Journal</h1>
     <div class="nav-container">
-        <nav role="navigation" class="hidden">	
-          <ul class="navgroup">
-              <li><h2>Journal Entries</h2></li>
-              <li><a href="#">Sign Out</a></li>
-              <li><a href="#">New Post</a></li>
-              <li><a href="#">View Entries</a></li>
-          </ul>
-        </nav>
-        </div>
-	</header>
-	
-	<main role="main">  
-    <section role="section" class="" id="login-page">  
+      <nav role="navigation" class="hidden" id="navbar">
+        <ul class="navgroup">
+          <li>
+            <h2>Dream Journal</h2>
+          </li>
+          <li><a class="sign-out">Sign Out</a></li>
+          <li><a class="new-post">New Post</a></li>
+          <li><a class="view-all">View All</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main">
+    <section role="section" class="" id="login-page">
       <div class="login-container">
         <form class="js-login-form" role="login">
-                <fieldset>
-                    <legend>Enter login information below:</legend>
-                  <label for="username">Username: 
-                    <input type="text" id="username" name="username" class="login-field" required></label>
-                  <label for="pass">Password: 
-                    <input type="password" id="pass" name="pass" class="login-field" required></label>
-                  </fieldset>
-                    <button class="button" id="login">Login</button>
-                  </form>
-        <p>First time user? <a href="#">Register.</a>
-        Forgot login information? <a href="#">Click here.</a></p>
-    </div>
-  </section>
-    
-  <section role="section" class="hidden" id="entry-page">
-			<div class="post-container">
-			<form class="js-post-form" role="post">
-					<fieldset>
-						<legend>New Post:</legend>
-					  <label for="username">Title: 
-						<input type="text" id="title" name="title" class="post-field" required></label>
-					  <label for="dreamentry">Entry: 
-						<textarea id="dreamentry" name="dreamentry" class="post-field" required></textarea></label>
-					  <label for="dreamdate">Date of Dream: 
-						<input type="text" id="dreamdate" name="dreamdate" class="post-field" placeholder="mm/dd/yyyy" required></label>
-					 <label for="tags">Tags: 
-            <input type="text" id="tags" name="tags" class="post-field" required placeholder="falling, rain, etc."></label>
+          <fieldset>
+            <legend>Enter login information below:</legend>
+            <label for="username">Username:
+              <input type="text" id="username" name="username" class="login-field" required></label>
+            <label for="pass">Password:
+              <input type="password" id="pass" name="pass" class="login-field" required></label>
+            <label for="email" class="hidden" id="email">Email:
+              <input type="text" id="email-field" name="email" class="login-field"></label>
+            </label>
           </fieldset>
-            <button class="button" id="post">Record Entry</button>
+          <button class="button" id="btnlogin">Login</button>
+        </form>
+        <p class="login-register-text">First time user? <a class="register">Register.</a></p>
+      </div>
+    </section>
+
+    <section role="section">
+      <div class="action-title">
+        <h3></h3>
+      </div>
+      <div class="hidden" id="entry-page">
+        <div class="post-container">
+          <form class="js-post-form" role="post">
+            <fieldset>
+              <label for="username">Title:
+                <input type="text" id="title" name="title" class="post-field" required></label>
+              <label for="dreamentry">Entry:
+                <textarea id="dreamentry" name="dreamentry" class="post-field" required></textarea></label>
+              <label for="dreamdate">Date of Dream:
+                <input type="text" id="dreamdate" name="dreamdate" class="post-field" placeholder="mm/dd/yyyy"
+                  required></label>
+              <label for="tags">Tags:
+                <input type="text" id="tags" name="tags" class="post-field" required
+                  placeholder="falling, rain, etc."></label>
+            </fieldset>
+            <button class="button" id="btnpost">Record Entry</button>
           </form>
-		</div>
-  </section>
-	</main>
+        </div>
+      </div>
+      <div class="hidden" id="view-all-page">
+      </div>
 
-	<footer>
-		<div class="footer-info">
-			</div>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="index.js"></script>
 
-    </body>
+    </section>
+
+
+
+  </main>
+
+  <footer>
+    <div class="footer-info">
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="index.js"></script>
+
+</body>
 
 </html>

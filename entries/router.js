@@ -31,15 +31,20 @@ app.use(jwtAuth);
 //   }
 // })
 
-entriesRouter.get('/', (req, res) => {
-  Entry
-    .find()
+entriesRouter.get('/', jwtAuth, (req, res) => {
+  User
+    .find({username: req.user.username})
+    .then(result => { return result[0]._id; })
+    .then(id => {
+      console.log(id);
+      return Entry.find({user: id});
+    })
     .then(entries => {
       res.json(entries.map(entries => entries.serialize()));
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'something went terribly wrong' });
+      res.status(500).json({ error: 'Something went wrong' });
     });
 });
 
@@ -114,11 +119,10 @@ entriesRouter.put('/:id', (req, res) => {
 });
 
 
-entriesRouter.delete('/:id', (req, res) => {
+entriesRouter.delete('/:id', jwtAuth, (req, res) => {
   Entry
     .findByIdAndRemove(req.params.id)
     .then(() => {
-      console.log(`Deleted entry with id \`${req.params.id}\``);
       res.status(204).end();
     });
 });
