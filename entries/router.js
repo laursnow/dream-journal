@@ -1,68 +1,45 @@
-'use strict';
+"use strict";
 
-const express = require('express');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
+const express = require("express");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-const { Entry } = require('./models');
+const { Entry } = require("./models");
 const entriesRouter = express.Router();
 const app = express();
-const passport = require('passport');
-const {User} = require('../users/models');
-entriesRouter.use(morgan('common'));
+const passport = require("passport");
+const { User } = require("../users/models");
+entriesRouter.use(morgan("common"));
 entriesRouter.use(express.json());
-const userRouter = require('../users/router');
-app.use('/users', userRouter);
+const userRouter = require("../users/router");
+app.use("/users", userRouter);
 
-const {localStrategy, jwtStrategy } = require('../auth');
+const { localStrategy, jwtStrategy } = require("../auth");
 passport.use(localStrategy);
 passport.use(jwtStrategy);
-const jwtAuth = passport.authenticate('jwt', {session: false});
+const jwtAuth = passport.authenticate("jwt", { session: false });
 app.use(jwtAuth);
 
-// Entry => ({
-//   create: async ctx => {
-//     ctx.body = await Entry.create(ctx.request.body)
-//   },
-
-//   all: async ctx => {
-//     ctx.body = await Entry.find({})
-//       .populate('users')
-//   }
-// })
-
-entriesRouter.get('/', jwtAuth, (req, res) => {
-  User
-    .find({username: req.user.username})
-    .then(result => { return result[0]._id; })
+entriesRouter.get("/", jwtAuth, (req, res) => {
+  User.find({ username: req.user.username })
+    .then(result => {
+      return result[0]._id;
+    })
     .then(id => {
       console.log(id);
-      return Entry.find({user: id});
+      return Entry.find({ user: id });
     })
     .then(entries => {
       res.json(entries.map(entries => entries.serialize()));
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong' });
+      res.status(500).json({ error: "Something went wrong" });
     });
 });
 
-entriesRouter.get('/:id', (req, res) => {
-  console.log(req.user);
-  Entry
-    .findById(req.params.id)
-    .then(entry => res.json(entry.serialize()))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ error: 'something went horribly awry' });
-    });
-});
-
-
-
-entriesRouter.post('/', jwtAuth, (req, res) => {
-  const requiredFields = ['title', 'content'];
+entriesRouter.post("/", jwtAuth, (req, res) => {
+  const requiredFields = ["title", "content"];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -72,64 +49,60 @@ entriesRouter.post('/', jwtAuth, (req, res) => {
     }
   }
 
-  Entry
-    .create({
-      title: req.body.title,
-      content: req.body.content,
-      contentDate: req.body.contentDate,
-      postDate: req.body.postDate,
-      tags: req.body.tags,
-    })
+  Entry.create({
+    title: req.body.title,
+    content: req.body.content,
+    contentDate: req.body.contentDate,
+    postDate: req.body.postDate,
+    tags: req.body.tags
+  })
     .then(entry => res.status(201).json(entry.serialize()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong' });
+      res.status(500).json({ error: "Something went wrong" });
     });
-  User
-    .find({username: req.user.username})
-    .then(result => { return result[0]._id; })
+  User.find({ username: req.user.username })
+    .then(result => {
+      return result[0]._id;
+    })
     .then(id => {
-      return Entry.findOneAndUpdate({title: req.body.title}, {user: id});
+      return Entry.findOneAndUpdate({ title: req.body.title }, { user: id });
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'Something went wrong' });
+      res.status(500).json({ error: "Something went wrong" });
     });
 });
 
-entriesRouter.put('/:id', (req, res) => {
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-    res.status(400).json({
-      error: 'Request path id and request body id values must match'
-    });
-  }
-
-  const updated = {};
-  const updateableFields = ['title', 'content', 'contentDate', 'postDate', 'tags'];
-  updateableFields.forEach(field => {
-    if (field in req.body) {
-      updated[field] = req.body[field];
-    }
-  });
-
-  Entry
-    .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+entriesRouter.put("/", jwtAuth, (req, res) => {
+  const updated = {
+    title: req.body.title,
+    content: req.body.content,
+    contentDate: req.body.contentDate,
+    tags: req.body.tags
+  };
+  Entry.updateOne({ _id: req.body.id }, { $set: updated }, { new: true })
     .then(entry => res.status(204).end())
-    .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+    .catch(err => res.status(500).json({ message: "Something went wrong" }));
 });
 
-
-entriesRouter.delete('/:id', jwtAuth, (req, res) => {
-  Entry
-    .findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.status(204).end();
-    });
+entriesRouter.delete("/", jwtAuth, (req, res) => {
+  Entry.deleteOne({
+    title: req.body.title,
+    content: req.body.content,
+    contentDate: req.body.contentDate
+  }).then(() => {
+    res
+      .status(204)
+      .end()
+      .catch(err => {
+        res.status(500).json({ error: "Something went wrong" });
+      });
+  });
 });
 
-
-entriesRouter.use('*', function (req, res) {
-  res.status(404).json({ message: 'Not Found' });
+entriesRouter.use("*", function(req, res) {
+  res.status(404).json({ message: "Not Found" });
 });
 
 module.exports = entriesRouter;

@@ -146,6 +146,23 @@ main {
   box-shadow: 2px 2px 6px #000000;
 }
 
+.update-container {
+  z-index: 2;
+  display: block;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  font-family: "Mukta", sans-serif;
+  width: 36%;
+  top: 105px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  padding: 20px 5px 20px 5px;
+  box-shadow: 2px 2px 6px #000000;
+}
+
 .login-container input {
   display: block;
   margin: auto;
@@ -160,6 +177,19 @@ main {
 }
 
 .post-container input {
+  display: block;
+  margin: auto;
+  font-family: "Mukta", sans-serif;
+  color: white;
+  background-color: rgba(183, 171, 214, 0.5);
+  border: 0px solid rgba(255, 255, 255, 0.85);
+  width: 400px;
+  height: 40px;
+  padding: 0px 0px 0px 0px;
+  font-size: 16px;
+}
+
+.js-update-form input {
   display: block;
   margin: auto;
   font-family: "Mukta", sans-serif;
@@ -239,7 +269,7 @@ a:active {
   color: rgba(183, 171, 214);
 }
 
-#dreamentry {
+#dreamentry, #dreamentryUpdate {
   display: block;
   margin: auto;
   font-family: "Mukta", sans-serif;
@@ -261,7 +291,7 @@ a:active {
   font-size: 16px;
 }
 
-.btnupdate, .btndelete {
+.btnupdate, .btndelete, .btnsave {
   background-color: rgba(183, 171, 214, 0.66);
   color: black;
   height: 30px;
