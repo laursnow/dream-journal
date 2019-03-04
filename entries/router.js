@@ -26,8 +26,7 @@ entriesRouter.get("/", jwtAuth, (req, res) => {
       return result[0]._id;
     })
     .then(id => {
-      console.log(id);
-      return Entry.find({ user: id });
+      return Entry.find({ user: id }).sort([['contentDate', -1]]);
     })
     .then(entries => {
       res.json(entries.map(entries => entries.serialize()));
@@ -82,7 +81,7 @@ entriesRouter.put("/", jwtAuth, (req, res) => {
     tags: req.body.tags
   };
   Entry.updateOne({ _id: req.body.id }, { $set: updated }, { new: true })
-    .then(entry => res.status(204).end())
+    .then(entry => res.status(200).json(updated))
     .catch(err => res.status(500).json({ message: "Something went wrong" }));
 });
 

@@ -4,6 +4,14 @@
 
 const ENTRY_INFO = [];
 
+// $( function() {
+//   $('.date-field').datepicker();
+// } );
+
+$('body').on('focus', '.date-field', function(){
+  $(this).datepicker();
+});
+
 function watchLogin() {
   $('.login-container').on('submit', '.js-login-form', event => {
     event.preventDefault();
@@ -171,12 +179,11 @@ function updateView(title, content, date, tags, postId) {
               <label for="dreamentry">Entry:
                 <textarea id="dreamentryUpdate" name="dreamentry" class="post-field" required>${content}</textarea></label>
               <label for="dreamdate">Date of Dream:
-                <input type="text" id="dreamdateUpdate" name="dreamdate" class="post-field" value="${newDate}" required></label>
+                <input type="text" id="dreamdateUpdate" name="dreamdate" class="date-field" value="${newDate}" required></label>
               <label for="tags">Tags:
                 <input type="text" id="tagsUpdate" name="tags" class="post-field" value="${tags}" required></label>
             </fieldset>
-             <button type="button" class="btnsave" id=${postId}>Save Entry</button><button class="btndelete" id=${postId}>Delete Entry</button></form>
-    </div>`
+             <p class="button-align"><button type="button" class="btnsave" id=${postId}>Save Entry</button><button class="btndelete" id=${postId}>Delete Entry</button></p></form></div>`
   );
 }
 
@@ -223,8 +230,7 @@ function deleteEntry(title, content, date) {
     dataType: 'json',
     headers: { 'Authorization': `Bearer ${sessionStorage.getItem('sessionToken')}` },
     success: function () {
-      alert(`Entry "${title}" has been deleted.`);
-      getAllEntries();
+      postDeletedResponse();
     },
     error: function postAlert(err) {
       alert(err);
@@ -282,6 +288,21 @@ function getAllEntries() {
   });
 }
 
+function newPostResponse() {
+  $('h3').text('');
+  $('#entry-page').html(
+    `<div class="post-container"><p class="response">
+    Post created successfully.</p>`);
+}
+
+function postDeletedResponse() {
+  $('h3').text('');
+  $('#view-all-page').html(
+    `<div class="update-container"><p class="response">
+    Post removed successfully.</p>`
+  );
+}
+
 function displayAllEntries(entries) {
   hideNewPost();
   showViewAll();
@@ -298,19 +319,19 @@ function storeEntryInfo(entries) {
 }
 
 function viewUpdatedPost(entries, id) {
-  // let unformattedDate = new Date(entries.contentDate);
-  // let date = unformattedDate.toDateString();
-  // $('h3').text('View Entry');
-  // $('#view-all-page').append(
-  //   `<div class="update-container">
-  //   <h4 class="title">${entries.title}</h4>
-  //   <p class="content">${entries.content}</p>
-  //   <p class="date">${date}</p>
-  //   <p class="tags">Tags: ${entries.tags}<p>
+  let unformattedDate = new Date(entries.contentDate);
+  let date = unformattedDate.toDateString();
+  $('h3').text('View Entry');
+  $('#view-all-page').html(
+    `<div class="update-container">
+    <h4 class="title">${entries.title}</h4>
+    <p class="content">${entries.content}</p>
+    <p class="date"><span class="purple">Date: </span>${date}</p>
+    <p class="tags"><span class="purple">Tags: </span>${entries.tags}</p>
 
-  // <button class="btnupdate" id=${id}>Update Entry</button><button class="btndelete" id=${id}>Delete Entry</button>
-  // </div>`
-  getAllEntries();
+  <p class="button-align"><button class="btnupdate" type="button" id=${id}>Update Entry</button><button class="btndelete" type="button"
+   id=${id}>Delete Entry</button></p>
+  </div>`);
 }
 
 function entryTemplate(entries) {
@@ -321,10 +342,10 @@ function entryTemplate(entries) {
       `<div class="entry-container">
       <h4 class="title">${entries[i].title}</h4>
       <p class="content">${entries[i].content}</p>
-      <p class="date">${date}</p>
-      <p class="tags">Tags: ${entries[i].tags}<p>
+      <p class="date"><span class="purple">Date: </span>${date}</p>
+      <p class="tags"><span class="purple">Tags: </span>${entries[i].tags}</p>
 
-    <button class="btnupdate" id=${i}>Update Entry</button><button class="btndelete" id=${i}>Delete Entry</button>
+      <p class="button-align"><button class="btnupdate" type="button" id=${i}>Update Entry</button><button class="btndelete" type="button" id=${i}>Delete Entry</button></p>
     </div>`
     );
   }
@@ -338,10 +359,8 @@ function postEntry(title, entryNew, entryDate, entryTags) {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     headers: { 'Authorization': `Bearer ${sessionStorage.getItem('sessionToken')}` },
-    success: function (res) {
-      alert('success [need to code this]');
-      getAllEntries();
-
+    success: function () {
+      newPostResponse();
     },
     error: function postAlert(err) {
       alert(err);
@@ -349,6 +368,24 @@ function postEntry(title, entryNew, entryDate, entryTags) {
   });
 }
 
+
+function watchSignOut() {
+  $('.sign-out').on('click', event => {
+    signOut();
+  });
+}
+
+function signOut() {
+  $.ajax({
+    method: 'get',
+    url: '/auth/logout',
+    headers: { 'Authorization': `Bearer ${sessionStorage.getItem('sessionToken')}` },
+    success: function () {
+      sessionStorage.removeItem('sessionToken');
+      location.reload(true);
+    }
+  });
+}
 
 
 
@@ -361,3 +398,4 @@ $(watchViewAllLink);
 $(watchUpdate);
 $(watchDelete);
 $(watchSaveEntry);
+$(watchSignOut);

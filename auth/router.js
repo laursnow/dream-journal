@@ -32,4 +32,10 @@ authRouter.post('/refresh', jwtAuth, (req, res) => {
   res.json({authToken});
 });
 
+authRouter.get('/logout', jwtAuth, (req, res) => {
+  req.logout();
+  res.redirect('../');
+});
+
+
 module.exports = authRouter;

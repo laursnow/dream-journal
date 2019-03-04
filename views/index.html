@@ -7,6 +7,8 @@
   <title>DreamJournal</title>
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Mukta" rel="stylesheet">
   <link href="styles.css" rel="stylesheet" type="text/css" />
+  <link href="jquery-ui.css" rel="stylesheet" type="text/css" />
+
 
 </head>
 
@@ -20,9 +22,9 @@
           <li>
             <h2>Dream Journal</h2>
           </li>
-          <li><a class="sign-out">Sign Out</a></li>
-          <li><a class="new-post">New Post</a></li>
-          <li><a class="display-all">View All</a></li>
+          <li><a class="sign-out menu-item">Sign Out</a></li>
+          <li><a class="new-post menu-item">New Post</a></li>
+          <li><a class="display-all menu-item">View All</a></li>
         </ul>
       </nav>
     </div>
@@ -42,7 +44,7 @@
               <input type="text" id="email-field" name="email" class="login-field"></label>
             </label>
           </fieldset>
-          <button class="button" id="btnlogin">Login</button>
+          <button class="button" type="submit" id="btnlogin">Login</button>
         </form>
         <p class="login-register-text">First time user? <a class="register">Register.</a></p>
       </div>
@@ -61,8 +63,7 @@
               <label for="dreamentry">Entry:
                 <textarea id="dreamentry" name="dreamentry" class="post-field" required></textarea></label>
               <label for="dreamdate">Date of Dream:
-                <input type="text" id="dreamdate" name="dreamdate" class="post-field" placeholder="mm/dd/yyyy"
-                  required></label>
+                <input type="text" id="dreamdate" name="dreamdate" class="date-field" required></label>
               <label for="tags">Tags:
                 <input type="text" id="tags" name="tags" class="post-field" required
                   placeholder="falling, rain, etc."></label>
@@ -86,7 +87,9 @@
     </div>
   </footer>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="index.js"></script>
+  <script src="api.js"></script>
 
 </body>
 
