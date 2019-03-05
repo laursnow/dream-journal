@@ -62,7 +62,7 @@ function seedDummyUser() {
   return User.save(seedUser);
 }
 
-describe('dream journal API resource', function (done) {
+describe('dream journal API resource', function () {
 
 
 
@@ -89,16 +89,16 @@ describe('dream journal API resource', function (done) {
     return closeServer();
   });
 
-  describe('register new user endpoint'), function (done) {
+  describe('register new user endpoint'), function () {
 
     it('should register user',
-      function (done) {
+      function () {
 
         const userCredentials = {
           username: faker.internet.userName(),
           password: faker.internet.password(),
           email: faker.internet.email()};
-        
+
         return chai.request(app)
           .post('../users')
           .send(userCredentials)
@@ -116,35 +116,30 @@ describe('dream journal API resource', function (done) {
           .then(function (user) {
             user.username.should.equal(userCredentials.username);
             user.body.email.should.equal(userCredentials.email);
-            done();
-          }); 
-          
-      });
-      done();
-  };
-
-  describe('login endpoint'), function () {
-
-    it('should login user and return authentification token',
-
-
-      function (done) {
- 
-        return chai.request(app)
-          .post('../auth/login')
-          .send(testUser.username, testUser.password)
-          .then (function (res) {
-            res.should.have.status(200);
-            res.shoud.be.json;
-            res.should.be.a('object');
-            done();
           });
       });
+
+    describe('login endpoint'), function () {
+
+      it('should login user and return authentification token',
+
+
+        function () {
+ 
+          return chai.request(app)
+            .post('../auth/login')
+            .send(testUser.username, testUser.password)
+            .then (function (res) {
+              res.should.have.status(200);
+              res.shoud.be.json;
+              res.should.be.a('object');
+            });
+        });};
   };
 
-  describe('GET endpoint', function (done) {
+  describe('GET endpoint', function () {
 
-    it('should return all existing posts by logged in user', function (done) {
+    it('should return all existing posts by logged in user', function () {
   
       const token = jwt.sign({
         id: testUser._id
@@ -165,11 +160,10 @@ describe('dream journal API resource', function (done) {
           // the number of returned posts should be same
           // as number of posts in DB
           res.body.should.have.lengthOf(count);
-          done();
         });
     });
-  
-    it('should return posts with right fields', function (done) {
+
+    it('should return posts with right fields', function () {
       // Strategy: Get back all posts, and ensure they have expected keys
       const token = jwt.sign({
         id: testUser._id
@@ -201,18 +195,18 @@ describe('dream journal API resource', function (done) {
           resEntry.contentDate.should.equal(entry.contentDate);
           resEntry.postDate.should.equal(entry.postDate);
           resEntry.tags.should.equal(entry.tags);
-          done();
         });
     });
-    done();
   });
+
+
 
   describe('POST endpoint', function () {
     // strategy: make a POST request with data,
     // then prove that the post we get back has
     // right keys, and that `id` is there (which means
     // the data was inserted into db)
-    it('should add a new entry', function (done) {
+    it('should add a new entry', function () {
 
       const token = jwt.sign({
         id: testUser._id
@@ -247,10 +241,9 @@ describe('dream journal API resource', function (done) {
           entry.contentDate.should.equal(newEntry.contentDate);
           entry.postDate.should.equal(newEntry.postDate);
           entry.tags.should.equal(newEntry.tags);
-          done();
         });
     });
-  })
+  });
 
   
   describe('PUT endpoint', function () {
@@ -263,7 +256,7 @@ describe('dream journal API resource', function (done) {
     //  1. Get an existing post from db
     //  2. Make a PUT request to update that post
     //  4. Prove post in db is correctly updated
-    it('should update fields you send over', function (done) {
+    it('should update fields you send over', function () {
       const updateData = {
         title: 'I won the lottery',
         content: 'I had a dream I won the lottery',
@@ -294,7 +287,7 @@ describe('dream journal API resource', function (done) {
           entry.contentDate.should.equal(updateData.contentDate);
           entry.postDate.should.equal(updateData.postDate);
           entry.tags.should.equal(updateData.tags);
-          done();
+
         });
     });
   });
@@ -305,7 +298,7 @@ describe('dream journal API resource', function (done) {
     //  2. make a DELETE request for that post's id
     //  3. assert that response has right status code
     //  4. prove that post with the id doesn't exist in db anymore
-    it('should delete a post by id', function (done) {
+    it('should delete a post by id', function () {
 
       const token = jwt.sign({
         id: testUser._id
@@ -330,9 +323,7 @@ describe('dream journal API resource', function (done) {
           // an error. `should.be.null(_post)` is how we can
           // make assertions about a null value.
           should.not.exist(_entry);
-          done();
         });
     });
   });
-  done();
 });
