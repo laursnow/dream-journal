@@ -62,7 +62,7 @@ function seedDummyUser() {
   return User.save(seedUser);
 }
 
-describe('dream journal API resource', function () {
+describe('dream journal API resource', function (done) {
 
 
 
@@ -98,7 +98,7 @@ describe('dream journal API resource', function () {
           username: faker.internet.userName(),
           password: faker.internet.password(),
           email: faker.internet.email()};
-        done();
+        
         return chai.request(app)
           .post('../users')
           .send(userCredentials)
@@ -118,7 +118,9 @@ describe('dream journal API resource', function () {
             user.body.email.should.equal(userCredentials.email);
             done();
           }); 
+          
       });
+      done();
   };
 
   describe('login endpoint'), function () {
@@ -332,4 +334,5 @@ describe('dream journal API resource', function () {
         });
     });
   });
+  done();
 });
