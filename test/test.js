@@ -89,7 +89,7 @@ describe('dream journal API resource', function () {
     return closeServer();
   });
 
-  describe('register new user endpoint'), function () {
+  describe('register new user endpoint'), function (done) {
 
     it('should register user',
       function (done) {
@@ -137,9 +137,10 @@ describe('dream journal API resource', function () {
               done();
             });
         });};
+    done();
   };
 
-  describe('GET endpoint', function () {
+  describe('GET endpoint', function (done) {
 
     it('should return all existing posts by logged in user', function (done) {
   
@@ -201,11 +202,11 @@ describe('dream journal API resource', function () {
           done();
         });
     });
-  });
+    done();});
 
 
 
-  describe('POST endpoint', function () {
+  describe('POST endpoint', function (done) {
     // strategy: make a POST request with data,
     // then prove that the post we get back has
     // right keys, and that `id` is there (which means
@@ -248,6 +249,7 @@ describe('dream journal API resource', function () {
           done();
         });
     });
+    done();
   });
 
   
@@ -261,7 +263,7 @@ describe('dream journal API resource', function () {
     //  1. Get an existing post from db
     //  2. Make a PUT request to update that post
     //  4. Prove post in db is correctly updated
-    it('should update fields you send over', function () {
+    it('should update fields you send over', function (done) {
       const updateData = {
         title: 'I won the lottery',
         content: 'I had a dream I won the lottery',
@@ -292,7 +294,7 @@ describe('dream journal API resource', function () {
           entry.contentDate.should.equal(updateData.contentDate);
           entry.postDate.should.equal(updateData.postDate);
           entry.tags.should.equal(updateData.tags);
-
+          done();
         });
     });
   });
@@ -303,7 +305,7 @@ describe('dream journal API resource', function () {
     //  2. make a DELETE request for that post's id
     //  3. assert that response has right status code
     //  4. prove that post with the id doesn't exist in db anymore
-    it('should delete a post by id', function () {
+    it('should delete a post by id', function (done) {
 
       const token = jwt.sign({
         id: testUser._id
@@ -328,6 +330,7 @@ describe('dream journal API resource', function () {
           // an error. `should.be.null(_post)` is how we can
           // make assertions about a null value.
           should.not.exist(_entry);
+          done();
         });
     });
   });
