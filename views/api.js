@@ -29,21 +29,18 @@ const api = (function() {
         location.reload(true);
       },
       error: function registerAlert(err) {
-        alert(err.responseText);
         console.log(err);
       }
     });
   }
 
-  function deleteEntry(title, content, date, successCallback) {
+  function deleteEntry(databaseId, successCallback) {
     $.ajax({
       method: 'DELETE',
       url: '/entries',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify({
-        title: title,
-        content: content,
-        contentDate: date
+        id: databaseId
       }),
       dataType: 'json',
       headers: {

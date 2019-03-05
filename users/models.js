@@ -23,7 +23,7 @@ var passValidator = [
   validate({
     validator: 'isLength',
     arguments: [8, 72],
-    message: 'Password should be between {ARGS[0]} and {ARGS[1]} characters'
+    message: 'Password should be between {ARGS[8]} and {ARGS[72]} characters'
   })
 ];
 

@@ -2,15 +2,31 @@
 
 'use strict';
 
+// Client storage
+
 const ENTRY_INFO = [];
 
-// $( function() {
-//   $('.date-field').datepicker();
-// } );
+function clearENTRY_INFO() {
+  ENTRY_INFO.length = 0;
+}
 
-$('body').on('focus', '.date-field', function(){
-  $(this).datepicker();
-});
+function storeENTRY_INFO(entries) {
+  ENTRY_INFO.length = 0;
+  for (let i = 0; i < entries.length; i++) {
+    ENTRY_INFO.push({postId: i, databaseId: entries[i].id, title: entries[i].title, content: entries[i].content, date: entries[i].contentDate, tags: entries[i].tags});
+  }
+}
+
+function updateENTRY_INFO(entry, postId) {
+  let objIndex = ENTRY_INFO.findIndex((entry => entry.postId == postId));
+  ENTRY_INFO[objIndex].databaseId = entry.id;
+  ENTRY_INFO[objIndex].title = entry.title;
+  ENTRY_INFO[objIndex].content = entry.content;
+  ENTRY_INFO[objIndex].date = entry.contentDate;
+  ENTRY_INFO[objIndex].tags = entry.tags;
+}
+
+// Login
 
 function watchLogin() {
   $('.login-container').on('submit', '.js-login-form', event => {
@@ -18,7 +34,6 @@ function watchLogin() {
     const username = $('#username').val();
     const pass = $('#pass').val();
     api.login(username, pass, loginSuccess);
-    console.log('fire watch login');
   });
 }
 
@@ -28,11 +43,12 @@ function loginSuccess(res) {
   showNewPost();
 }
 
+// Registration
+
 function watchRegister() {
   $('.register').on('click', event => {
     event.preventDefault();
     showRegistrationForm();
-    console.log('fire watch register');
   });
 }
 
@@ -51,25 +67,20 @@ function watchRegistrationForm() {
     const pass = $('#pass').val();
     const email = $('#email-field').val();
     api.register(user, pass, email);
-    console.log('fire watch registration form');
   });
 }
 
-function watchPost() {
-  $('.js-post-form').on('submit', event => {
-    event.preventDefault();
-    const title = $('#title').val();
-    const entryNew = $('#dreamentry').val();
-    const entryDate = $('#dreamdate').val();
-    const entryTags = $('#tags').val();
-    api.postEntry(title, entryNew, entryDate, entryTags,        newPostResponse);
-    console.log('fire watch post');
-  });
-}
+// Create new post
 
 function hideLogin() {
   $('#login-page').addClass('hidden');
   $('#h1-login').addClass('hidden');
+}
+
+function watchNewPostLink() {
+  $('.new-post').on('click', event => {
+    showNewPost();
+  });
 }
 
 function showNewPost() {
@@ -79,10 +90,21 @@ function showNewPost() {
   $('input').val('');
   $('textarea').val('');
   hideViewAll();
-  console.log('show new post');
 }
 
-function hideNewPost() {
+function watchPost() {
+  $('.js-post-form').on('submit', event => {
+    event.preventDefault();
+    const title = $('#title').val();
+    const entryNew = $('#dreamentry').val();
+    const entryDate = $('#dreamdate').val();
+    const entryTags = $('#tags').val();
+    api.postEntry(title, entryNew, entryDate, entryTags, newPostResponse);
+  });
+}
+
+function newPostResponse() {
+  $('h3').text(' Post created successfully');
   $('#entry-page').addClass('hidden');
 }
 
@@ -91,22 +113,11 @@ function hideViewAll() {
   $('#view-all-page').addClass('hidden');
 }
 
-function showViewAll() {
-  $('#view-all-page').removeClass('hidden');
-  $('h3').text('Journal Entries');
-}
-
-function watchNewPostLink() {
-  $('.new-post').on('click', event => {
-    showNewPost();
-    console.log('fire watch new post link');
-  });
-}
+// View all entries
 
 function watchViewAllLink() {
   $('.display-all').on('click', event => {
     api.getAllEntries(getAllEntriesSuccess);
-    console.log('fire watch view all link');
   });
 }
 
@@ -116,15 +127,46 @@ function getAllEntriesSuccess(res) {
   displayAllEntries(res); 
 }
 
-function clearENTRY_INFO() {
-  ENTRY_INFO.length = 0;
+function displayAllEntries(entries) {
+  hideNewPost();
+  showViewAll();
+  entryTemplate(entries);
+  storeENTRY_INFO(entries);
 }
+
+function hideNewPost() {
+  $('#entry-page').addClass('hidden');
+}
+
+function showViewAll() {
+  $('#view-all-page').removeClass('hidden');
+  $('h3').text('Journal Entries');
+}
+
+function entryTemplate(entries) {
+  for (let i = 0; i < entries.length; i++) {
+    let unformattedDate = new Date(entries[i].contentDate);
+    let date = unformattedDate.toDateString();
+    $('#view-all-page').append(
+      `<div class="entry-container">
+      <h4 class="title">${entries[i].title}</h4>
+      <p class="content">${entries[i].content}</p>
+      <p class="date"><span class="purple">Date: </span>${date}</p>
+      <p class="tags"><span class="purple">Tags: </span>${entries[i].tags}</p>
+
+      <p class="button-align"><button class="btnupdate" type="button" id=${i}>Update Entry</button>
+      <button class="btndelete" type="button" id=${i}>Delete Entry</button></p>
+    </div>`
+    );
+  }
+}
+
+// Update entry
 
 function watchUpdate() {
   $('#view-all-page').on('click', '.btnupdate', function(btn) {
     let id = btn.target.id;
     findPostForUpdate(id);
-    console.log('fire watch update');
   });
 }
 
@@ -169,37 +211,8 @@ function watchSaveEntry() {
   $('#view-all-page').on('click', '.btnsave', function(btn) {
     let id = btn.target.id;
     getUpdateValues(id);
-    console.log('fire save entry');
   });
 }
-
-function watchDelete() {
-  $('#view-all-page').on('click', '.btndelete', function(btn) {
-    let id = btn.target.id;
-    event.preventDefault();
-    let deleteConfirmation = confirm('Are you sure you want to delete this entry?');
-    if (deleteConfirmation === true) {
-      console.log(`ID: ${id}`);
-      findPostForRemoval(id);
-      console.log('fire watch delete');
-    }
-  });
-}
-
-function findPostForRemoval(id) {
-  let obj = ENTRY_INFO.find(function(o) {
-    return o.postId == id; 
-  });
-  sendPostForRemoval(obj);
-}
-
-function sendPostForRemoval(entry) {
-  let title = entry.title;
-  let content = entry.content;
-  let date = entry.date;
-  api.deleteEntry(title, content, date, postDeletedResponse);
-}
-
 
 function getUpdateValues(id) {
   const obj = ENTRY_INFO.find(function(o) {
@@ -211,42 +224,7 @@ function getUpdateValues(id) {
   const entryUpdate = $('#dreamentryUpdate').val();
   const entryDateUpdate = $('#dreamdateUpdate').val();
   const entryTagsUpdate = $('#tagsUpdate').val();
-  console.log(titleUpdate, entryUpdate, entryDateUpdate, entryTagsUpdate, postId, databaseId, 'update');
   api.updateEntry(titleUpdate, entryUpdate, entryDateUpdate, entryTagsUpdate, databaseId, postId, viewUpdatedPost);
-}
-
-function newPostResponse() {
-  $('h3').text(' Post created successfully');
-  $('#entry-page').addClass('hidden');
-}
-
-function postDeletedResponse() {
-  $('h3').text('Post removed successfully');
-  $('#view-all-page').addClass('hidden');
-}
-
-function displayAllEntries(entries) {
-  hideNewPost();
-  showViewAll();
-  entryTemplate(entries);
-  storeEntryInfo(entries);
-}
-
-function storeEntryInfo(entries) {
-  ENTRY_INFO.length = 0;
-  for (let i = 0; i < entries.length; i++) {
-    ENTRY_INFO.push({postId: i, databaseId: entries[i].id, title: entries[i].title, content: entries[i].content, date: entries[i].contentDate, tags: entries[i].tags});
-  }
-  console.log(ENTRY_INFO);
-}
-
-function updateENTRY_INFO(entry, postId) {
-  let objIndex = ENTRY_INFO.findIndex((entry => entry.postId == postId));
-  ENTRY_INFO[objIndex].databaseId = entry.id;
-  ENTRY_INFO[objIndex].title = entry.title;
-  ENTRY_INFO[objIndex].content = entry.content;
-  ENTRY_INFO[objIndex].date = entry.contentDate;
-  ENTRY_INFO[objIndex].tags = entry.tags;
 }
 
 function viewUpdatedPost(entry, id) {
@@ -266,25 +244,38 @@ function viewUpdatedPost(entry, id) {
   </div>`);
 }
 
-function entryTemplate(entries) {
-  for (let i = 0; i < entries.length; i++) {
-    let unformattedDate = new Date(entries[i].contentDate);
-    let date = unformattedDate.toDateString();
-    $('#view-all-page').append(
-      `<div class="entry-container">
-      <h4 class="title">${entries[i].title}</h4>
-      <p class="content">${entries[i].content}</p>
-      <p class="date"><span class="purple">Date: </span>${date}</p>
-      <p class="tags"><span class="purple">Tags: </span>${entries[i].tags}</p>
 
-      <p class="button-align"><button class="btnupdate" type="button" id=${i}>Update Entry</button>
-      <button class="btndelete" type="button" id=${i}>Delete Entry</button></p>
-    </div>`
-    );
-  }
+// Delete post
+
+function watchDelete() {
+  $('#view-all-page').on('click', '.btndelete', function(btn) {
+    let id = btn.target.id;
+    event.preventDefault();
+    let deleteConfirmation = confirm('Are you sure you want to delete this entry?');
+    if (deleteConfirmation === true) {
+      findPostForRemoval(id);
+    }
+  });
 }
 
+function findPostForRemoval(id) {
+  let obj = ENTRY_INFO.find(function(o) {
+    return o.postId == id; 
+  });
+  sendPostForRemoval(obj);
+}
 
+function sendPostForRemoval(entry) {
+  let databaseId = entry.databaseId;
+  api.deleteEntry(databaseId, postDeletedResponse);
+}
+
+function postDeletedResponse() {
+  $('h3').text('Post removed successfully');
+  $('#view-all-page').addClass('hidden');
+}
+
+// Sign out
 
 function watchSignOut() {
   $('.sign-out').on('click', event => {
@@ -293,9 +284,11 @@ function watchSignOut() {
   });
 }
 
+// Events
 
-
-
+$('body').on('focus', '.date-field', function(){
+  $(this).datepicker();
+});
 
 $(watchLogin);
 $(watchPost);
