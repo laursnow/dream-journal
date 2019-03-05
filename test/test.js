@@ -62,6 +62,10 @@ function seedDummyUser() {
   return User.save(seedUser);
 }
 
+describe('dream journal API resource', function () {
+
+
+
   before(function () {
     return runServer(TEST_DATABASE_URL);
   });
@@ -85,7 +89,7 @@ function seedDummyUser() {
     return closeServer();
   });
 
-  describe('register new user endpoint'), function (done) {
+  describe('register new user endpoint'), function () {
 
     it('should register user',
       function (done) {
@@ -115,25 +119,25 @@ function seedDummyUser() {
             done();
           }); 
       });
+  };
 
-    describe('login endpoint'), function () {
+  describe('login endpoint'), function () {
 
-      it('should login user and return authentification token',
+    it('should login user and return authentification token',
 
 
-        function (done) {
+      function (done) {
  
-          return chai.request(app)
-            .post('../auth/login')
-            .send(testUser.username, testUser.password)
-            .then (function (res) {
-              res.should.have.status(200);
-              res.shoud.be.json;
-              res.should.be.a('object');
-              done();
-            });
-        });};
-    done();
+        return chai.request(app)
+          .post('../auth/login')
+          .send(testUser.username, testUser.password)
+          .then (function (res) {
+            res.should.have.status(200);
+            res.shoud.be.json;
+            res.should.be.a('object');
+            done();
+          });
+      });
   };
 
   describe('GET endpoint', function (done) {
@@ -162,7 +166,7 @@ function seedDummyUser() {
           done();
         });
     });
-
+  
     it('should return posts with right fields', function (done) {
       // Strategy: Get back all posts, and ensure they have expected keys
       const token = jwt.sign({
@@ -198,11 +202,10 @@ function seedDummyUser() {
           done();
         });
     });
-    done();});
+    done();
+  });
 
-
-
-  describe('POST endpoint', function (done) {
+  describe('POST endpoint', function () {
     // strategy: make a POST request with data,
     // then prove that the post we get back has
     // right keys, and that `id` is there (which means
@@ -245,8 +248,7 @@ function seedDummyUser() {
           done();
         });
     });
-    done();
-  });
+  })
 
   
   describe('PUT endpoint', function () {
@@ -330,3 +332,4 @@ function seedDummyUser() {
         });
     });
   });
+});
