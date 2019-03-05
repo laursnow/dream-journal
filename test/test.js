@@ -62,10 +62,6 @@ function seedDummyUser() {
   return User.save(seedUser);
 }
 
-describe('dream journal API resource', function () {
-
-
-
   before(function () {
     return runServer(TEST_DATABASE_URL);
   });
@@ -334,4 +330,3 @@ describe('dream journal API resource', function () {
         });
     });
   });
-});
