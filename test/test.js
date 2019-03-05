@@ -116,6 +116,7 @@ describe('dream journal API resource', function () {
           .then(function (user) {
             user.username.should.equal(userCredentials.username);
             user.body.email.should.equal(userCredentials.email);
+            done();
           }); 
       });
 
@@ -124,7 +125,7 @@ describe('dream journal API resource', function () {
       it('should login user and return authentification token',
 
 
-        function () {
+        function (done) {
  
           return chai.request(app)
             .post('../auth/login')
@@ -133,6 +134,7 @@ describe('dream journal API resource', function () {
               res.should.have.status(200);
               res.shoud.be.json;
               res.should.be.a('object');
+              done();
             });
         });};
   };
@@ -160,10 +162,11 @@ describe('dream journal API resource', function () {
           // the number of returned posts should be same
           // as number of posts in DB
           res.body.should.have.lengthOf(count);
+          done();
         });
     });
 
-    it('should return posts with right fields', function () {
+    it('should return posts with right fields', function (done) {
       // Strategy: Get back all posts, and ensure they have expected keys
       const token = jwt.sign({
         id: testUser._id
@@ -195,6 +198,7 @@ describe('dream journal API resource', function () {
           resEntry.contentDate.should.equal(entry.contentDate);
           resEntry.postDate.should.equal(entry.postDate);
           resEntry.tags.should.equal(entry.tags);
+          done();
         });
     });
   });
@@ -241,6 +245,7 @@ describe('dream journal API resource', function () {
           entry.contentDate.should.equal(newEntry.contentDate);
           entry.postDate.should.equal(newEntry.postDate);
           entry.tags.should.equal(newEntry.tags);
+          done();
         });
     });
   });
