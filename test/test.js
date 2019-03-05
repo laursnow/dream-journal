@@ -92,7 +92,7 @@ describe('dream journal API resource', function () {
   describe('register new user endpoint'), function () {
 
     it('should register user',
-      function () {
+      function (done) {
 
         const userCredentials = {
           username: faker.internet.userName(),
@@ -116,7 +116,7 @@ describe('dream journal API resource', function () {
           .then(function (user) {
             user.username.should.equal(userCredentials.username);
             user.body.email.should.equal(userCredentials.email);
-          });
+          }); 
       });
 
     describe('login endpoint'), function () {
@@ -139,7 +139,7 @@ describe('dream journal API resource', function () {
 
   describe('GET endpoint', function () {
 
-    it('should return all existing posts by logged in user', function () {
+    it('should return all existing posts by logged in user', function (done) {
   
       const token = jwt.sign({
         id: testUser._id
@@ -206,7 +206,7 @@ describe('dream journal API resource', function () {
     // then prove that the post we get back has
     // right keys, and that `id` is there (which means
     // the data was inserted into db)
-    it('should add a new entry', function () {
+    it('should add a new entry', function (done) {
 
       const token = jwt.sign({
         id: testUser._id
