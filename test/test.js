@@ -98,7 +98,7 @@ describe('dream journal API resource', function () {
           username: faker.internet.userName(),
           password: faker.internet.password(),
           email: faker.internet.email()};
-
+        done();
         return chai.request(app)
           .post('../users')
           .send(userCredentials)
@@ -116,7 +116,6 @@ describe('dream journal API resource', function () {
           .then(function (user) {
             user.username.should.equal(userCredentials.username);
             user.body.email.should.equal(userCredentials.email);
-            done();
           }); 
       });
   };
