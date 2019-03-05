@@ -89,7 +89,7 @@ describe('dream journal API resource', function () {
     return closeServer();
   });
 
-  describe('register new user endpoint'), function () {
+  describe('register new user endpoint'), function (done) {
 
     it('should register user',
       function (done) {
@@ -116,6 +116,7 @@ describe('dream journal API resource', function () {
           .then(function (user) {
             user.username.should.equal(userCredentials.username);
             user.body.email.should.equal(userCredentials.email);
+            done();
           }); 
       });
   };
