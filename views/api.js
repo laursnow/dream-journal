@@ -100,7 +100,7 @@ const api = (function() {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem('sessionToken')}`
       },
-      success: successCallback,
+      success: successCallback
     });
   }
 

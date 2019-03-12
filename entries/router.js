@@ -86,15 +86,13 @@ entriesRouter.put('/', jwtAuth, (req, res) => {
 });
 
 entriesRouter.delete('/', jwtAuth, (req, res) => {
+  console.log('delete test', req.body.id);
   Entry.deleteOne({
     _id: req.body.id
   }).then(() => {
     res
       .status(204)
-      .end()
-      .catch(err => {
-        res.status(500).json({ error: 'Something went wrong' });
-      });
+      .end();
   });
 });
 

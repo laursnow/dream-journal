@@ -246,46 +246,45 @@ describe('dream journal API resource', function () {
     });
   });
 
-  // describe('DELETE endpoint', function () {
-  //   it.only('should delete a post', function () {
+  describe('DELETE endpoint', function () {
+    it('should delete a post', function () {
 
-  //     const token = jwt.sign(
-  //       {
-  //         user: {
-  //           username,
-  //           email
-  //         }
-  //       },
-  //       JWT_SECRET,
-  //       {
-  //         algorithm: 'HS256',
-  //         subject: username,
-  //         expiresIn: '7d'
-  //       }
-  //     );
+      const token = jwt.sign(
+        {
+          user: {
+            username,
+            email
+          }
+        },
+        JWT_SECRET,
+        {
+          algorithm: 'HS256',
+          subject: username,
+          expiresIn: '7d'
+        }
+      );
 
-  //     let entry;
+      let entry;
 
-  //     return Entry
-  //       .findOne()
-  //       .then(post => {
-  //         entry = post;
-  //         console.log(post.id, '!!!!');
-  //         return chai.request(app)
-  //           .delete('/entries')
-  //           .set( 'Authorization', `Bearer ${ token }` )
-  //           .send(post.id);
-  //       })
-  //       .then(res => {
-  //         res.should.have.status(204);
-  //         return Entry.findById(entry.id);
-  //       })
-  //       .then(post => {
-  //         should.not.exist(post);
+      return Entry
+        .findOne()
+        .then(post => {
+          entry = post;
+          console.log(post.id, '!!!!');
+          return chai.request(app)
+            .delete('/entries')
+            .set( 'Authorization', `Bearer ${ token }` )
+            .send({id: post.id});
+        })
+        .then(res => {
+          res.should.have.status(204);
+          return Entry.findById(entry.id);
+        })
+        .then(post => {
+          console.log(post);
+          should.not.exist(post);
           
-  //       });
-  //   });
-  // });
+        });
+    });
+  });
 });
-
-// TODO: delete rest not working
