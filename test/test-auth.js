@@ -2,15 +2,13 @@
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const expect = chai.expect;
 require('dotenv').config();
 const { User } = require('../users/models');
 const { JWT_SECRET } = require('../config');
 const jwt = require('jsonwebtoken');
 const { closeServer, runServer, app } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-chai.use(chaiHttp);
-const expect = chai.expect;
-
 chai.use(chaiHttp);
 
 describe('Auth endpoints', function () {
@@ -152,7 +150,7 @@ describe('Auth endpoints', function () {
             username,
             email
           },
-          exp: Math.floor(Date.now() / 1000) - 10 // Expired ten seconds ago
+          exp: Math.floor(Date.now() / 1000) - 10
         },
         JWT_SECRET,
         {

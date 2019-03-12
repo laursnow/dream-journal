@@ -3,12 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userRouter = express.Router();
 const jsonParser = bodyParser.json();
-
 const {User} = require('./models');
 
-
-
-// Post to register a new user
 userRouter.post('/', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
   const missingField = requiredFields.find(field => !(field in req.body));
@@ -51,12 +47,18 @@ userRouter.post('/', jsonParser, (req, res) => {
   }
 
   let {username, password, email} = req.body;
-  
+  if (password.length < 8 || password.length > 72) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Password must be between 8 and 72 characters',
+    });
+  }
+
   return User.find({username})
     .count()
     .then(count => {
       if (count > 0) {
-        // There is an existing user with the same username
         return Promise.reject({
           code: 422,
           reason: 'ValidationError',
@@ -68,14 +70,12 @@ userRouter.post('/', jsonParser, (req, res) => {
         .count()
         .then(count => {
           if (count > 0) {
-            // There is an existing user with the same username
             return Promise.reject({
               code: 422,
               reason: 'ValidationError',
               message: 'Email already taken',
               location: 'email'});
           }
-          // If there is no existing user, hash the password
           return User.hashPassword(password);
         })
         .then(hash => {
@@ -89,9 +89,6 @@ userRouter.post('/', jsonParser, (req, res) => {
           return res.status(201).json(user.serialize());
         })
         .catch(err => {
-          console.log(err);
-          // Forward validation errors on to the client, otherwise give a 500
-          // error because something unexpected has happened
           if (err.name === 'ValidationError') {
             res.status(412).json(err.message);
           }
@@ -99,8 +96,6 @@ userRouter.post('/', jsonParser, (req, res) => {
         });
     })
     .catch(err => {
-      // Forward validation errors on to the client, otherwise give a 500
-      // error because something unexpected has happened
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }

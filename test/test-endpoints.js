@@ -5,22 +5,15 @@ const chaiHttp = require('chai-http');
 const faker = require('faker');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const should = chai.should();
-
 const { Entry } = require('../entries/models');
 const { User } = require('../users/models');
 const { JWT_SECRET } = require('../config');
-const { JWT_EXPIRY } = require('../config');
 const jwt = require('jsonwebtoken');
 const { closeServer, runServer, app } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-
+const should = chai.should();
 chai.use(chaiHttp);
 
-// this function deletes the entire database.
-// we'll call it in an `afterEach` block below
-// to ensure  ata from one test does not stick
-// around for next one
 function tearDownDb() {
   return new Promise((resolve, reject) => {
     mongoose.connection.dropDatabase()
@@ -32,7 +25,6 @@ function tearDownDb() {
 let testUser;
 
 function seedEntryData() {
-  console.log('seeding blog post data');
   const seedData = [];
   for (let i = 1; i <= 10; i++) {
     seedData.push({
@@ -152,7 +144,7 @@ describe('dream journal API resource', function () {
         .then(entry => {
           resEntry.title.should.equal(entry.title);
           resEntry.content.should.equal(entry.content);
-          // resEntry.tags.should.equal(entry.tags); TODO: quotes issue
+          // resEntry.tags.should.equal(entry.tags); TODO: quotes issue, date
         });
     });
   });
@@ -203,7 +195,7 @@ describe('dream journal API resource', function () {
         .then(function (entry) {
           entry.title.should.equal(newEntry.title);
           entry.content.should.equal(newEntry.content);
-          // entry.tags.should.equal(newEntry.tags); TODO: quote issue
+          // entry.tags.should.equal(newEntry.tags); TODO: quote issue, date
         });
     });
   });

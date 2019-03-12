@@ -1,5 +1,3 @@
-//complete
-
 'use strict';
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose'); 
@@ -19,14 +17,6 @@ var usernameValidator = [
   }),
 ];
 
-var passValidator = [
-  validate({
-    validator: 'isLength',
-    arguments: [8, 72],
-    message: 'Password should be between {ARGS[8]} and {ARGS[72]} characters'
-  })
-];
-
 var emailValidator = [
   validate({
     validator: 'isEmail',
@@ -44,8 +34,7 @@ const UserSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
-    validate: passValidator
+    required: true
   },
   email: {
     type: String,

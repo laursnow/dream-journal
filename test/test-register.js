@@ -7,13 +7,9 @@ const {User} = require('../users');
 const { TEST_DATABASE_URL } = require('../config');
 const expect = chai.expect;
 
-
-// This let's us make HTTP requests
-// in our tests.
-// see: https://github.com/chaijs/chai-http
 chai.use(chaiHttp);
 
-describe('/user', function() {
+describe('/user endpoints', function() {
   const username = 'exampleUser';
   const password = 'examplePass';
   const email = 'email@email.com';
@@ -101,13 +97,8 @@ describe('/user', function() {
             email
           })
           .then((res) => {
-            expect(res).to.have.status(201); // TODO: fix this
-            // expect(res).to.have.status(412);
-            // expect(res.body.reason).to.equal('ValidationError');
-            // expect(res.body.message).to.equal(
-            //   'Incorrect field type: expected string'
-            // );
-            // expect(res.body.location).to.equal('password');
+            expect(res).to.have.status(422);
+            expect(res.body.reason).to.equal('ValidationError');
           })
           .catch(err => {
             if (err instanceof chai.AssertionError) {
@@ -168,10 +159,8 @@ describe('/user', function() {
             email
           })
           .then((res) => {
-            expect(res).to.have.status(201); // TODO: fix this
-            // expect(res).to.have.status(422);
-            // expect(res.body.reason).to.equal('ValidationError');
-            // expect(res.body.location).to.equal('password');
+            expect(res).to.have.status(422);
+            expect(res.body.reason).to.equal('ValidationError');
           })
           .catch(err => {
             if (err instanceof chai.AssertionError) {

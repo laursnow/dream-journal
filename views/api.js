@@ -29,7 +29,7 @@ const api = (function() {
         location.reload(true);
       },
       error: function registerAlert(err) {
-        console.log(err);
+        alert(err.responseText);
       }
     });
   }
@@ -46,10 +46,7 @@ const api = (function() {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem('sessionToken')}`
       },
-      success: successCallback,
-      error: function postAlert(err) {
-        alert(err);
-      }
+      success: successCallback
     });
   }
 
@@ -71,9 +68,6 @@ const api = (function() {
       },
       success: function(res) {
         successCallback(res, postId);
-      },
-      error: function postAlert(err) {
-        alert(err);
       }
     });
   }
@@ -87,10 +81,7 @@ const api = (function() {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem('sessionToken')}`
       },
-      success: successCallback,
-      error: function postAlert(err) {
-        alert(err);
-      }
+      success: successCallback
     });
   }
 
@@ -110,9 +101,6 @@ const api = (function() {
         Authorization: `Bearer ${sessionStorage.getItem('sessionToken')}`
       },
       success: successCallback,
-      error: function postAlert(err) {
-        alert(err);
-      }
     });
   }
 
@@ -128,6 +116,7 @@ const api = (function() {
       }
     });
   }
+
 
   return {
     login,
