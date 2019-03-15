@@ -86,6 +86,7 @@ function watchNewPostLink() {
 function showNewPost() {
   $('#navbar').removeClass('hidden');
   $('#entry-page').removeClass('hidden');
+  $('.action-title').removeClass('hidden');
   $('h3').text('New Post');
   $('input').val('');
   $('textarea').val('');

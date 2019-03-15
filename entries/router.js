@@ -32,7 +32,6 @@ entriesRouter.get('/', jwtAuth, (req, res) => {
       res.json(entries.map(entries => entries.serialize()));
     })
     .catch(err => {
-      console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
 });
@@ -43,7 +42,6 @@ entriesRouter.post('/', jwtAuth, (req, res) => {
     const field = requiredFields[i];
     if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`;
-      console.error(message);
       return res.status(400).send(message);
     }
   }
@@ -57,7 +55,6 @@ entriesRouter.post('/', jwtAuth, (req, res) => {
   })
     .then(entry => res.status(201).json(entry.serialize()))
     .catch(err => {
-      console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
   User.find({ username: req.user.username })
@@ -68,7 +65,6 @@ entriesRouter.post('/', jwtAuth, (req, res) => {
       return Entry.findOneAndUpdate({ title: req.body.title }, { user: id });
     })
     .catch(err => {
-      console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
 });
@@ -86,7 +82,6 @@ entriesRouter.put('/', jwtAuth, (req, res) => {
 });
 
 entriesRouter.delete('/', jwtAuth, (req, res) => {
-  console.log('delete test', req.body.id);
   Entry.deleteOne({
     _id: req.body.id
   }).then(() => {

@@ -144,7 +144,6 @@ describe('dream journal API resource', function () {
         .then(entry => {
           resEntry.title.should.equal(entry.title);
           resEntry.content.should.equal(entry.content);
-          // resEntry.tags.should.equal(entry.tags); TODO: quotes issue, date
         });
     });
   });
@@ -195,7 +194,6 @@ describe('dream journal API resource', function () {
         .then(function (entry) {
           entry.title.should.equal(newEntry.title);
           entry.content.should.equal(newEntry.content);
-          // entry.tags.should.equal(newEntry.tags); TODO: quote issue, date
         });
     });
   });
@@ -270,7 +268,6 @@ describe('dream journal API resource', function () {
         .findOne()
         .then(post => {
           entry = post;
-          console.log(post.id, '!!!!');
           return chai.request(app)
             .delete('/entries')
             .set( 'Authorization', `Bearer ${ token }` )
@@ -281,7 +278,6 @@ describe('dream journal API resource', function () {
           return Entry.findById(entry.id);
         })
         .then(post => {
-          console.log(post);
           should.not.exist(post);
           
         });

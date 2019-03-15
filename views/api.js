@@ -46,7 +46,10 @@ const api = (function() {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem('sessionToken')}`
       },
-      success: successCallback
+      success: successCallback,
+      error: function () {
+        alert('Something went wrong. Please try again later.');
+      }
     });
   }
 
@@ -68,6 +71,9 @@ const api = (function() {
       },
       success: function(res) {
         successCallback(res, postId);
+      },
+      error: function () {
+        alert('Something went wrong. Please try again later.');
       }
     });
   }
@@ -81,7 +87,10 @@ const api = (function() {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem('sessionToken')}`
       },
-      success: successCallback
+      success: successCallback,
+      error: function () {
+        alert('Something went wrong. Please try again later.');
+      }
     });
   }
 
@@ -100,7 +109,10 @@ const api = (function() {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem('sessionToken')}`
       },
-      success: successCallback
+      success: successCallback,
+      error: function () {
+        alert('Something went wrong. Please try again later.');
+      }
     });
   }
 
