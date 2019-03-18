@@ -32,7 +32,7 @@ New users register with a username, password and valid e-mail address.
 Interface for recording a new dream entry into the application.
 
 ![View All Posts](https://github.com/laursnow/server-side-capstone/blob/master/screenshots/viewall.png "view all posts")
-Interface for viewing all recorded entries (sorted in descending order of each dream's recorded date). Links for updating and deleting are included at the bottom of each individual entry.
+Interface for viewing all recorded entries (sorted in descending order of each dream's recorded date). Users can scroll down and see all entries. Links for updating and deleting are included at the bottom of each individual entry.
 
 ![Update Post](https://github.com/laursnow/server-side-capstone/blob/master/screenshots/update.png "update post")
 Interface for updating posts. Posts can also be deleted from the update interface.
