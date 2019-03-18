@@ -55,7 +55,7 @@ h4 {
   padding: 0px;
   margin: 0px;
 }
-.menu-item {
+a, .menu-item {
   cursor: pointer;
 }
 
@@ -353,9 +353,12 @@ and (max-device-width: 767px)
   }
  .update-container, .entry-container, .post-container {
    width: 75%;
-   margin-bottom: 36px;
    border: 1px solid rgba(183, 171, 214, 0.66);
    top: 86px;
+  }
+
+  .entry-container {
+    margin-bottom: 36px;
   }
 
   .login-container {
@@ -378,18 +381,19 @@ and (max-device-width: 767px)
     top: -15px;
   }
  
-  .nav-container li {
-   padding-right: 0px;
-   padding-left: 0px;
-   padding-bottom: 10px;
-   padding-top: 5px;
+  .nav-container ul {
    float: right;
-   margin-top: -60px;
+   margin-top: 38px;
 }
+
+.nav-container li {
+  height: 100%;
+} 
   .menu-item {
     font-family: "Mukta", sans-serif;
     font-size: 18px;
     padding-right: 10px;
+
   }
   h2 {
     font-size: 35px;
