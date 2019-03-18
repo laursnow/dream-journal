@@ -15,9 +15,9 @@ PUT     : create a new user
 
 /entries/ endpoint:
 
-PUT     : Update an entry
-POST    : Create a new entry
-GET     : Display all entries for the logged in user
+PUT     : Update an entry<br>
+POST    : Create a new entry<br>
+GET     : Display all entries for the logged in user<br>
 DELETE  : Delete an entry
 
 ## Screenshots
