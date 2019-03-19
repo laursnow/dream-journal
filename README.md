@@ -1,11 +1,11 @@
 # Dream Journal
 
 ## Application Demo
-[Live Application](https://dreamjournal-capstone.herokuapp.com/ "Dream Journal")
+**[Live Application](https://dreamjournal-capstone.herokuapp.com/ "Dream Journal")**
 
 **Demo user (case sensitive):**
 
-Username: sampleuser
+Username: sampleuser<br>
 Password: samplepassword
 
 ## Description
@@ -16,15 +16,17 @@ The Dream Journal application allows users to register and log a description of 
 
 **/users/ endpoint:**
 
-```PUT     : create a new user```
+```
+POST     : create a new user
+```
 
 **/entries/ endpoint:**
 ```
 Requires authentification.
 
-PUT     : Update an entry<br>
-POST    : Create a new entry<br>
-GET     : Display all entries for the logged in user<br>
+PUT     : Update an entry
+POST    : Create a new entry
+GET     : Display all entries for the logged in user
 DELETE  : Delete an entry
 ```
 
