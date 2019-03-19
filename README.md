@@ -52,6 +52,7 @@ Interface for updating posts. Posts can also be deleted from the update interfac
 * Journal entry calendar view
 * Search function by date, tags and keywords
 * Statistics (ex: # of posts tagged with "nightmare", total number of dreams per week/month, etc.)
+* Markup in textarea
 
 ## Technology
 
