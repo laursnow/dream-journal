@@ -54,7 +54,7 @@ function watchRegister() {
 
 function showRegistrationForm() {
   $('#email').removeClass('hidden');
-  $('legend').text('Enter information below to register:');
+  $('legend').text('Enter information below to register. Usernames and passwords are case sensitive.');
   $('#btnlogin').text('Register');
   $('.js-login-form').removeClass('js-login-form').addClass('js-register-form');
   $('.login-register-text').html('Already signed up? <a href=".">Login.</a>');
