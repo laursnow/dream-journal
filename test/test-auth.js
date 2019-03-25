@@ -12,7 +12,7 @@ const { TEST_DATABASE_URL } = require('../config');
 chai.use(chaiHttp);
 
 describe('Auth endpoints', function () {
-  const username = 'exampleUser';
+  const username = 'exampleuser';
   const password = 'examplePass';
   const email = 'email@email.com';
 

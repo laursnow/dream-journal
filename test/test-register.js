@@ -10,7 +10,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('/user endpoints', function() {
-  const username = 'exampleUser';
+  const username = 'exampleuser';
   const password = 'examplePass';
   const email = 'email@email.com';
 
