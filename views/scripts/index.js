@@ -2,14 +2,20 @@
 
 'use strict';
 
+// Ensures user is not logged out on refresh
+
 function checkSession() {
   const sessionToken = sessionStorage.getItem('sessionToken');
   if (sessionToken) {
-    api.getAllEntries(getAllEntriesSuccess); // wrap all of this into a function
-    hideLogin();
-    $('#navbar').removeClass('hidden');
-    $('.action-title').removeClass('hidden');
+    refreshSession();
   }
+}
+
+function refreshSession() {
+  api.getAllEntries(getAllEntriesSuccess); 
+  hideLogin();
+  $('#navbar').removeClass('hidden');
+  $('.action-title').removeClass('hidden');
 }
 
 // Client storage
@@ -82,7 +88,7 @@ function watchRegistrationForm() {
 
 // Create new post
 
-// hides any & all present HTML
+// Hides any & all present HTML
 
 function hideLogin() {
   $('#login-page').addClass('hidden');
@@ -128,22 +134,6 @@ function newPostResponse() {
   $('h3').text(' Post created successfully');
   $('#entry-page').addClass('hidden');
   displayLinks();
-}
-
-function hideResponseLinks() {
-  $('.response-container').addClass('hidden');
-}
-
-function displayLinks() {
-  $('.response-container').removeClass('hidden');
-}
-
-function watchBack() {
-  $('.back-nav').on('click', event => window.history.back());
-}
-
-function watchForward() {
-  $('.back-nav').on('click', event => window.history.forward());
 }
 
 // View all entries (fetch from API)
@@ -336,6 +326,27 @@ function watchSignOut() {
     sessionStorage.removeItem('sessionToken');
   });
 }
+
+// Toggles successful response links
+
+function hideResponseLinks() {
+  $('.response-container').addClass('hidden');
+}
+
+function displayLinks() {
+  $('.response-container').removeClass('hidden');
+}
+
+// Back & forward buttons
+
+function watchBack() {
+  $('.back-nav').on('click', event => window.history.back());
+}
+
+function watchForward() {
+  $('.back-nav').on('click', event => window.history.forward());
+}
+
 
 // Calendar input
 

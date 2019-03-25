@@ -2,7 +2,6 @@
 'use strict';
 
 const api = (function() {
-
   function login(user, pass, successCallback) {
     $.ajax({
       method: 'POST',
@@ -29,7 +28,27 @@ const api = (function() {
         location.reload(true);
       },
       error: function registerAlert(err) {
-        alert(err.responseText);
+        let error = JSON.parse(err.responseText);
+        try {
+          if (error.code == '422') {
+            alert(error.message);
+          } else if (
+            error.includes('User validation failed: username:') &&
+            error.includes('email: Please enter valid e-mail')
+          ) {
+            alert(
+              'Username should be between 3 and 20 characters (letters & numbers only) and e-mail is not valid.'
+            );
+          } else if (error.includes('User validation failed: username:')) {
+            alert(
+              'Username should be between 3 and 20 characters (letters & numbers only).'
+            );
+          } else if (error.includes('email: Please enter valid e-mail')) {
+            alert('Please enter valid e-mail.');
+          }    
+        } catch(err) {
+          alert('Something went wrong. Please try again.');
+        }
       }
     });
   }
@@ -47,13 +66,21 @@ const api = (function() {
         Authorization: `Bearer ${sessionStorage.getItem('sessionToken')}`
       },
       success: successCallback,
-      error: function () {
+      error: function() {
         alert('Something went wrong. Please try again later.');
       }
     });
   }
 
-  function updateEntry(title, content, date, tags, databaseId, postId, successCallback) {
+  function updateEntry(
+    title,
+    content,
+    date,
+    tags,
+    databaseId,
+    postId,
+    successCallback
+  ) {
     $.ajax({
       method: 'PUT',
       url: '/entries',
@@ -72,7 +99,7 @@ const api = (function() {
       success: function(res) {
         successCallback(res, postId);
       },
-      error: function () {
+      error: function() {
         alert('Something went wrong. Please try again later.');
       }
     });
@@ -88,7 +115,7 @@ const api = (function() {
         Authorization: `Bearer ${sessionStorage.getItem('sessionToken')}`
       },
       success: successCallback,
-      error: function () {
+      error: function() {
         alert('Something went wrong. Please try again later.');
       }
     });
@@ -110,7 +137,7 @@ const api = (function() {
         Authorization: `Bearer ${sessionStorage.getItem('sessionToken')}`
       },
       success: successCallback,
-      error: function () {
+      error: function() {
         alert('Something went wrong. Please try again later.');
       }
     });
@@ -128,7 +155,6 @@ const api = (function() {
       }
     });
   }
-
 
   return {
     login,

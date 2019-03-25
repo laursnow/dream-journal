@@ -20,7 +20,8 @@ var usernameValidator = [
 var emailValidator = [
   validate({
     validator: 'isEmail',
-    message: 'Please enter valid e-mail'
+    message: 'Please enter valid e-mail',
+    passIfEmpty: true
   })
 ];
 
@@ -30,6 +31,7 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    lowercase: true,
     validate: usernameValidator
   },
   password: {
@@ -41,11 +43,9 @@ const UserSchema = mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
-    required: 'Email address is required',
     validate: emailValidator
   }},
 { collection: 'users'});
-
 
 UserSchema.methods.serialize = function() {
   return {

@@ -309,8 +309,8 @@ a:active {
 }
 
 @media only screen 
-and (min-device-width: 450px) 
-and (max-device-width: 797px) 
+and (min-width: 450px) 
+and (max-width: 797px) 
 {
   body {
     background-size: 85%;
@@ -375,10 +375,18 @@ and (max-device-width: 797px)
   }
 }
 
+.login-container input {
+  width: 75%;
+}
+
+.button {
+  width: 75%;
+}
+
 
 @media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 449px) {
+and (min-width: 320px) 
+and (max-width: 449.9px) {
     body {
       background-size: 88%;
       background-position: 50% 75px;
@@ -387,7 +395,7 @@ and (max-device-width: 449px) {
     h1 {
       font-size: 54px;
       padding-bottom: 26px;
-      margin-top: 94px;
+      margin-top: 78px;
     }
   
     h3 {
@@ -409,6 +417,7 @@ and (max-device-width: 449px) {
     top: 0px;
     width: 75%;
     border: 1px solid rgba(183, 171, 214, 0.66);
+    padding: 5px 5px 5px 5px;
     }
   
     .nav-container {
@@ -422,6 +431,8 @@ and (max-device-width: 449px) {
    .update-container, .entry-container, .post-container, .response-container {
      width: 75%;
      border: 1px solid rgba(183, 171, 214, 0.66);
+     top: 5px;
+     padding: 5px 10px 10px 10px;
     }
   
     .entry-container {
@@ -431,6 +442,7 @@ and (max-device-width: 449px) {
     .action-title {
       width: 75%;
       padding-bottom: 6px;
+      top: 5px;
     }
   
     .post-field {

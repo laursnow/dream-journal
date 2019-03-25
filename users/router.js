@@ -8,7 +8,6 @@ const {User} = require('./models');
 userRouter.post('/', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
   const missingField = requiredFields.find(field => !(field in req.body));
-
   if (missingField) {
     return res.status(422).json({
       code: 422,
@@ -53,8 +52,7 @@ userRouter.post('/', jsonParser, (req, res) => {
       reason: 'ValidationError',
       message: 'Password must be between 8 and 72 characters',
     });
-  }
-
+  } 
   return User.find({username})
     .count()
     .then(count => {
@@ -65,7 +63,7 @@ userRouter.post('/', jsonParser, (req, res) => {
           message: 'Username already taken',
           location: 'username'
         });
-      }
+      } 
       return User.find({email})
         .count()
         .then(count => {
