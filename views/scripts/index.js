@@ -2,6 +2,16 @@
 
 'use strict';
 
+function checkSession() {
+  const sessionToken = sessionStorage.getItem('sessionToken');
+  if (sessionToken) {
+    api.getAllEntries(getAllEntriesSuccess); // wrap all of this into a function
+    hideLogin();
+    $('#navbar').removeClass('hidden');
+    $('.action-title').removeClass('hidden');
+  }
+}
+
 // Client storage
 
 const ENTRY_INFO = [];
@@ -72,9 +82,16 @@ function watchRegistrationForm() {
 
 // Create new post
 
+// hides any & all present HTML
+
 function hideLogin() {
   $('#login-page').addClass('hidden');
   $('#h1-login').addClass('hidden');
+}
+
+function hideViewAll() {
+  $('#view-all-page').removeClass('hidden');
+  $('#view-all-page').addClass('hidden');
 }
 
 function watchNewPostLink() {
@@ -82,6 +99,8 @@ function watchNewPostLink() {
     showNewPost();
   });
 }
+
+// Displays new post HTML form
 
 function showNewPost() {
   $('#navbar').removeClass('hidden');
@@ -91,6 +110,7 @@ function showNewPost() {
   $('input').val('');
   $('textarea').val('');
   hideViewAll();
+  hideResponseLinks();
 }
 
 function watchPost() {
@@ -107,32 +127,31 @@ function watchPost() {
 function newPostResponse() {
   $('h3').text(' Post created successfully');
   $('#entry-page').addClass('hidden');
+  displayLinks();
 }
 
-function hideViewAll() {
-  $('#view-all-page').removeClass('hidden');
-  $('#view-all-page').addClass('hidden');
+function hideResponseLinks() {
+  $('.response-container').addClass('hidden');
 }
 
-// View all entries
+function displayLinks() {
+  $('.response-container').removeClass('hidden');
+}
+
+function watchBack() {
+  $('.back-nav').on('click', event => window.history.back());
+}
+
+function watchForward() {
+  $('.back-nav').on('click', event => window.history.forward());
+}
+
+// View all entries (fetch from API)
 
 function watchViewAllLink() {
   $('.display-all').on('click', event => {
     api.getAllEntries(getAllEntriesSuccess);
   });
-}
-
-function getAllEntriesSuccess(res) {
-  $('#view-all-page').html('');
-  clearENTRY_INFO();
-  displayAllEntries(res); 
-}
-
-function displayAllEntries(entries) {
-  hideNewPost();
-  showViewAll();
-  entryTemplate(entries);
-  storeENTRY_INFO(entries);
 }
 
 function hideNewPost() {
@@ -143,6 +162,24 @@ function showViewAll() {
   $('#view-all-page').removeClass('hidden');
   $('h3').text('Journal Entries');
 }
+
+// Displays API response
+
+function getAllEntriesSuccess(res) {
+  $('#view-all-page').html('');
+  clearENTRY_INFO();
+  displayAllEntries(res); 
+}
+
+function displayAllEntries(entries) {
+  hideNewPost();
+  hideResponseLinks();
+  showViewAll();
+  entryTemplate(entries);
+  storeENTRY_INFO(entries);
+}
+
+// Generated HTML to display results in post form
 
 function entryTemplate(entries) {
   for (let i = 0; i < entries.length; i++) {
@@ -171,12 +208,16 @@ function watchUpdate() {
   });
 }
 
+// Searching client storage for specific post to be updated
+
 function findPostForUpdate(id) {
   let obj = ENTRY_INFO.find(function(o) {
     return o.postId == id; 
   });
   sendPostForUpdate(obj, id);
 }
+
+// Assign variables of existing entry
 
 function sendPostForUpdate(entry, id) {
   let title = entry.title;
@@ -186,6 +227,8 @@ function sendPostForUpdate(entry, id) {
   let postId = id;
   updateView(title, content, date, tags, postId);
 }
+
+// Generate update post view with the post's existing information editable in the inputs
 
 function updateView(title, content, date, tags, postId) {
   let unformattedDate = new Date(date);
@@ -215,6 +258,8 @@ function watchSaveEntry() {
   });
 }
 
+// Send updated info to post update
+
 function getUpdateValues(id) {
   const obj = ENTRY_INFO.find(function(o) {
     return o.postId == id;
@@ -227,6 +272,8 @@ function getUpdateValues(id) {
   const entryTagsUpdate = $('#tagsUpdate').val();
   api.updateEntry(titleUpdate, entryUpdate, entryDateUpdate, entryTagsUpdate, databaseId, postId, viewUpdatedPost);
 }
+
+// Upon successful update, updated post is viewed
 
 function viewUpdatedPost(entry, id) {
   updateENTRY_INFO(entry, id);
@@ -259,12 +306,16 @@ function watchDelete() {
   });
 }
 
+// Search client storage for post to be deleted
+
 function findPostForRemoval(id) {
   let obj = ENTRY_INFO.find(function(o) {
     return o.postId == id; 
   });
   sendPostForRemoval(obj);
 }
+
+// Send post ID for deletion
 
 function sendPostForRemoval(entry) {
   let databaseId = entry.databaseId;
@@ -274,6 +325,7 @@ function sendPostForRemoval(entry) {
 function postDeletedResponse() {
   $('h3').text('Post removed successfully');
   $('#view-all-page').addClass('hidden');
+  displayLinks();
 }
 
 // Sign out
@@ -285,11 +337,13 @@ function watchSignOut() {
   });
 }
 
-// Events
+// Calendar input
 
 $('body').on('focus', '.date-field', function(){
   $(this).datepicker();
 });
+
+// Events
 
 $(watchLogin);
 $(watchPost);
@@ -301,3 +355,7 @@ $(watchUpdate);
 $(watchDelete);
 $(watchSaveEntry);
 $(watchSignOut);
+$(checkSession);
+$(watchForward);
+$(watchBack);
+

@@ -25,7 +25,7 @@ const api = (function() {
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
       success: function() {
-        alert('Registration successful. Please login.');
+        alert('Registration successful! Please login.');
         location.reload(true);
       },
       error: function registerAlert(err) {

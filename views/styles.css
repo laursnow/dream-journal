@@ -11,9 +11,9 @@ header {
 body {
   background-image: url("./images/login-background-color.png");
   background-color: black;
-  background-position: 50% 75px;
+  background-position: 50% 52px;
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: 60% 100%;
   background-attachment: fixed;
   margin: 0px;
   padding: 0px;
@@ -73,13 +73,33 @@ a, .menu-item {
   text-align: center;
   z-index: 3;
   width: 100%;
-  height: 75px;
+  height: 80px;
   top: -12px;
   right: 15px;
 }
 
-.nav-container ul {
+ul {
   list-style-type: none;
+}
+
+.response-navgroup {
+  padding: 0px;
+  font-size: 30px;
+  font-family: "Amatic SC", cursive;
+}
+
+.history-navgroup {
+  padding: 0px;
+  font-size: 17px;
+  font-family: "Mukta", sans-serif;
+}
+
+.history-navgroup li, .response-navgroup li {
+  display: inline;
+}
+
+.history-navgroup li:first-child, .response-navgroup li:first-child {
+  padding-right: 50px;
 }
 
 .nav-container li {
@@ -98,21 +118,19 @@ main {
   top: 60px;
 }
 
-.post-container {
+.post-container, .response-container {
   top: 25px;
 }
 
-.login-container, .post-container {
+.login-container, .post-container, .response-container {
   display: inline-block;
   position: relative;
-  border: 1px solid rgba(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.85);
   color: white;
   font-family: "Mukta", sans-serif;
-  width: 36%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 5px 5px 20px 5px;
+  width: 46%;
+  padding: 20px 5px 20px 5px;
   box-shadow: 2px 2px 6px #000000;
 }
 
@@ -120,11 +138,11 @@ main {
   z-index: 2;
   display: block;
   position: relative;
-  border: 1px solid rgba(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.85);
   color: white;
   font-family: "Mukta", sans-serif;
-  width: 36%;
+  width: 46%;
   top: 25px;
   margin-left: auto;
   margin-right: auto;
@@ -135,13 +153,15 @@ main {
 }
 
 .login-container input {
-  width: 200px;
+  width: 275px;
   height: 40px;
+  border: 0px;
 }
 
 .post-container input, .js-update-form input {
   width: 80%;
   height: 40px;
+  border: 0px;
 }
 
 .login-container input, .post-container input, .js-update-form input {
@@ -150,9 +170,9 @@ main {
   font-family: "Mukta", sans-serif;
   color: white;
   background-color: rgba(183, 171, 214, 0.5);
-  border: 0px solid rgba(255, 255, 255, 0.85);
   padding: 0px 0px 0px 0px;
   font-size: 17px;
+  border: 0px;
 }
 
 .action-title {
@@ -160,7 +180,7 @@ main {
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  width: 36%;
+  width: 46%;
   top: 20px;
 
 }
@@ -176,11 +196,12 @@ fieldset {
 }
 
 legend {
-  padding: 10px 0px 10px 0px;
+  display: none;
 }
 
 p {
   padding: 2px 0px 0px 0px;
+  
 }
 
 label {
@@ -188,11 +209,6 @@ label {
   text-align: center;
 }
 
-input:focus,
-input:hover,
-input:active {
-  border: 0px solid rgba(213, 166, 132);
-}
 
 a {
   text-decoration: none;
@@ -200,12 +216,12 @@ a {
 
 a,
 a:visited {
-  color: rgba(183, 171, 214);
+  color: rgb(183, 171, 214);
 }
 
 a:hover,
 a:active {
-  color: rgba(213, 166, 132);
+  color: rgb(213, 166, 132);
 }
 
 .button {
@@ -214,8 +230,8 @@ a:active {
   font-family: "Mukta", sans-serif;
   color: black;
   background-color: white;
-  border: 1px solid rgba(183, 171, 214);
-  width: 200px;
+  border: 1px solid rgb(183, 171, 214);
+  width: 275px;
   height: 44px;
   -webkit-transition-duration: 0.2s; /* Safari */
   transition-duration: 0.2s;
@@ -224,9 +240,9 @@ a:active {
 
 .button:hover,
 .button:focus {
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid rgba(183, 171, 214);
-  color: rgba(183, 171, 214);
+  background-color: rgb(0, 0, 0);
+  border: 1px solid rgb(183, 171, 214);
+  color: rgb(183, 171, 214);
 }
 
 #dreamentry, #dreamentryUpdate {
@@ -266,18 +282,18 @@ a:active {
 }
 
 .btnupdate:hover, .btndelete:hover, .btnsave:hover {
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid rgba(183, 171, 214);
-  color: rgba(183, 171, 214);
+  background-color: rgb(0, 0, 0);
+  border: 1px solid rgb(183, 171, 214);
+  color: rgb(183, 171, 214);
 }
 
 .purple {
-  color:  rgba(183, 171, 214);
+  color: rgb(183, 171, 214);
   font-weight: bold;
 }
 
 .orange {
-  color:  rgba(213, 166, 132);
+  color: rgb(213, 166, 132);
   font-weight: bold;
   letter-spacing: 0.1em;
 }
@@ -298,7 +314,7 @@ and (max-device-width: 797px)
 {
   body {
     background-size: 85%;
-    background-position: 50% 85px;
+    background-position: 50% 68px;
   }
   
   h1 {
@@ -323,6 +339,8 @@ and (max-device-width: 797px)
   
   .login-container {
   top: 0px;
+  width: 75%;
+  border: 1px solid rgba(183, 171, 214, 0.66);
   }
 
   .nav-container li {
@@ -331,18 +349,13 @@ and (max-device-width: 797px)
     padding: 35px 16px 0px 0px;
   }
 
- .update-container, .entry-container, .post-container {
-   width: 75%;
+ .update-container, .entry-container, .post-container, .response-container {
+   width: 70%;
    border: 1px solid rgba(183, 171, 214, 0.66);
   }
 
   .entry-container {
     margin-bottom: 36px;
-  }
-
-  .login-container {
-    width: 75%;
-    border: 1px solid rgba(183, 171, 214, 0.66);
   }
 
   .action-title {
@@ -361,12 +374,14 @@ and (max-device-width: 797px)
 
   }
 }
+
+
 @media only screen 
 and (min-device-width: 320px) 
 and (max-device-width: 449px) {
     body {
-      background-size: 85%;
-      background-position: 50% 85px;
+      background-size: 88%;
+      background-position: 50% 75px;
     }
     
     h1 {
@@ -392,6 +407,8 @@ and (max-device-width: 449px) {
 
     .login-container {
     top: 0px;
+    width: 75%;
+    border: 1px solid rgba(183, 171, 214, 0.66);
     }
   
     .nav-container {
@@ -402,7 +419,7 @@ and (max-device-width: 449px) {
       margin-top: -10px;
     }
   
-   .update-container, .entry-container, .post-container {
+   .update-container, .entry-container, .post-container, .response-container {
      width: 75%;
      border: 1px solid rgba(183, 171, 214, 0.66);
     }
@@ -410,12 +427,7 @@ and (max-device-width: 449px) {
     .entry-container {
       margin-bottom: 36px;
     }
-  
-    .login-container {
-      width: 75%;
-      border: 1px solid rgba(183, 171, 214, 0.66);
-    }
-  
+    
     .action-title {
       width: 75%;
       padding-bottom: 6px;

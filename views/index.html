@@ -19,7 +19,7 @@
     <div class="nav-container">
       <nav role="navigation" class="hidden" id="navbar">
         <ul class="navgroup">
-            <h2>Dream Journal</h2>
+          <h2>Dream Journal</h2>
           <li><a class="sign-out menu-item">Sign Out</a></li>
           <li><a class="new-post menu-item">New Post</a></li>
           <li><a class="display-all menu-item">View All</a></li>
@@ -31,9 +31,10 @@
   <main role="main">
     <section role="section" class="" id="login-page">
       <div class="login-container">
+        <p class="orange">A simple blogging app to record dreams.</p>Enter login information below:
         <form class="js-login-form" role="post">
           <fieldset>
-            <legend><p class="orange">A simple blogging app to record dreams.</p>Enter login information below:</legend>
+            <legend>Enter login information below:</legend>
             <label for="username">Username:
               <input type="text" id="username" name="username" class="login-field" required></label>
             <label for="pass">Password:
@@ -52,6 +53,17 @@
       <div class="action-title hidden">
         <h3></h3>
       </div>
+      <div class="response-container hidden" aria-live="assertive">
+        <ul class="response-navgroup">
+          <li><a class="display-all menu-item">View All</a></li>
+          <li><a class="new-post menu-item">New Post</a></li>
+        </ul>
+        <ul class="history-navgroup">
+          <li><a class="back-nav">< Back</a></li>
+          <li><a class="forward-nav">Forward ></a></li>
+        </ul>
+      </div>
+
       <div class="hidden" id="entry-page">
         <div class="post-container" aria-live="assertive">
           <form class="js-post-form" role="post">
@@ -78,8 +90,8 @@
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="index.js"></script>
-  <script src="api.js"></script>
+  <script src="scripts/index.js"></script>
+  <script src="scripts/api.js"></script>
 
 </body>
 
