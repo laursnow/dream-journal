@@ -1,4 +1,4 @@
-/* global $, api */
+/* global $, api, historyAPI */
 
 'use strict';
 
@@ -17,6 +17,27 @@ function refreshSession() {
   $('#navbar').removeClass('hidden');
   $('.action-title').removeClass('hidden');
 }
+
+// Using HTML5 history API to have functioning back & forward buttons
+
+window.addEventListener('popstate', function (event) {
+  let state = JSON.stringify(event.state);
+  if (state.includes('new')) {
+    showNewPost();
+  }
+  else if (state.includes('modify')) {
+    historyAPI.expired();
+  }
+  else if (state.includes('viewall')) {
+    api.getAllEntries(getAllEntriesSuccess);
+  }
+  else if (state.includes('response')) {
+    displayLinks();
+  }
+  else if (state.includes('expired')) {
+    historyAPI.expired();
+  }
+});
 
 // Client storage
 
@@ -103,6 +124,7 @@ function hideViewAll() {
 function watchNewPostLink() {
   $('.new-post').on('click', event => {
     showNewPost();
+    historyAPI.historyStateNew();
   });
 }
 
@@ -132,7 +154,7 @@ function watchPost() {
 
 function newPostResponse() {
   $('h3').text(' Post created successfully');
-  $('#entry-page').addClass('hidden');
+  historyAPI.historyStateResponse();
   displayLinks();
 }
 
@@ -141,6 +163,7 @@ function newPostResponse() {
 function watchViewAllLink() {
   $('.display-all').on('click', event => {
     api.getAllEntries(getAllEntriesSuccess);
+    historyAPI.historyStateViewAll();
   });
 }
 
@@ -221,6 +244,7 @@ function sendPostForUpdate(entry, id) {
 // Generate update post view with the post's existing information editable in the inputs
 
 function updateView(title, content, date, tags, postId) {
+  historyAPI.historyStateModify();
   let unformattedDate = new Date(date);
   let newDate = unformattedDate.toDateString();
   $('h3').text('Update Entry');
@@ -266,6 +290,7 @@ function getUpdateValues(id) {
 // Upon successful update, updated post is viewed
 
 function viewUpdatedPost(entry, id) {
+  historyAPI.historyStateModify();
   updateENTRY_INFO(entry, id);
   let unformattedDate = new Date(entry.contentDate);
   let date = unformattedDate.toDateString();
@@ -287,6 +312,7 @@ function viewUpdatedPost(entry, id) {
 
 function watchDelete() {
   $('#view-all-page').on('click', '.btndelete', function(btn) {
+    historyAPI.historyStateModify();
     let id = btn.target.id;
     event.preventDefault();
     let deleteConfirmation = confirm('Are you sure you want to delete this entry?');
@@ -314,7 +340,7 @@ function sendPostForRemoval(entry) {
 
 function postDeletedResponse() {
   $('h3').text('Post removed successfully');
-  $('#view-all-page').addClass('hidden');
+  historyAPI. historyStateModify();
   displayLinks();
 }
 
@@ -334,19 +360,10 @@ function hideResponseLinks() {
 }
 
 function displayLinks() {
+  $('#entry-page').addClass('hidden');
+  $('#view-all-page').addClass('hidden');
   $('.response-container').removeClass('hidden');
 }
-
-// Back & forward buttons
-
-function watchBack() {
-  $('.back-nav').on('click', event => window.history.back());
-}
-
-function watchForward() {
-  $('.back-nav').on('click', event => window.history.forward());
-}
-
 
 // Calendar input
 
@@ -354,7 +371,7 @@ $('body').on('focus', '.date-field', function(){
   $(this).datepicker();
 });
 
-// Events
+// jQuery events
 
 $(watchLogin);
 $(watchPost);
@@ -367,6 +384,5 @@ $(watchDelete);
 $(watchSaveEntry);
 $(watchSignOut);
 $(checkSession);
-$(watchForward);
-$(watchBack);
+
 

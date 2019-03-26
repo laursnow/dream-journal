@@ -59,7 +59,8 @@ h4 {
   padding: 0px;
   margin: 0px;
 }
-a, .menu-item {
+a,
+.menu-item {
   cursor: pointer;
 }
 
@@ -88,17 +89,11 @@ ul {
   font-family: "Amatic SC", cursive;
 }
 
-.history-navgroup {
-  padding: 0px;
-  font-size: 17px;
-  font-family: "Mukta", sans-serif;
-}
-
-.history-navgroup li, .response-navgroup li {
+.response-navgroup li {
   display: inline;
 }
 
-.history-navgroup li:first-child, .response-navgroup li:first-child {
+.response-navgroup li:first-child {
   padding-right: 50px;
 }
 
@@ -107,7 +102,6 @@ ul {
   font-family: "Amatic SC", cursive;
   color: white;
   padding: 0px 16px 0px 0px;
-
 }
 
 main {
@@ -118,11 +112,14 @@ main {
   top: 60px;
 }
 
-.post-container, .response-container {
+.post-container,
+.response-container {
   top: 25px;
 }
 
-.login-container, .post-container, .response-container {
+.login-container,
+.post-container,
+.response-container {
   display: inline-block;
   position: relative;
   border: 1px solid rgb(0, 0, 0);
@@ -134,7 +131,8 @@ main {
   box-shadow: 2px 2px 6px #000000;
 }
 
-.entry-container, .update-container {
+.entry-container,
+.update-container {
   z-index: 2;
   display: block;
   position: relative;
@@ -158,13 +156,16 @@ main {
   border: 0px;
 }
 
-.post-container input, .js-update-form input {
+.post-container input,
+.js-update-form input {
   width: 80%;
   height: 40px;
   border: 0px;
 }
 
-.login-container input, .post-container input, .js-update-form input {
+.login-container input,
+.post-container input,
+.js-update-form input {
   display: block;
   margin: auto;
   font-family: "Mukta", sans-serif;
@@ -182,7 +183,6 @@ main {
   margin-right: auto;
   width: 46%;
   top: 20px;
-
 }
 
 .menu-item {
@@ -201,14 +201,12 @@ legend {
 
 p {
   padding: 2px 0px 0px 0px;
-  
 }
 
 label {
   display: block;
   text-align: center;
 }
-
 
 a {
   text-decoration: none;
@@ -245,7 +243,8 @@ a:active {
   color: rgb(183, 171, 214);
 }
 
-#dreamentry, #dreamentryUpdate {
+#dreamentry,
+#dreamentryUpdate {
   display: block;
   margin: auto;
   font-family: "Mukta", sans-serif;
@@ -258,7 +257,8 @@ a:active {
   font-size: 17px;
 }
 
-.hidden, #hidden {
+.hidden,
+#hidden {
   display: none;
 }
 
@@ -267,7 +267,9 @@ a:active {
   font-size: 17px;
 }
 
-.btnupdate, .btndelete, .btnsave {
+.btnupdate,
+.btndelete,
+.btnsave {
   background-color: rgba(183, 171, 214, 0.66);
   color: black;
   height: 30px;
@@ -281,7 +283,9 @@ a:active {
   cursor: pointer;
 }
 
-.btnupdate:hover, .btndelete:hover, .btnsave:hover {
+.btnupdate:hover,
+.btndelete:hover,
+.btnsave:hover {
   background-color: rgb(0, 0, 0);
   border: 1px solid rgb(183, 171, 214);
   color: rgb(183, 171, 214);
@@ -308,15 +312,12 @@ a:active {
   font-family: "Amatic SC", cursive;
 }
 
-@media only screen 
-and (min-width: 450px) 
-and (max-width: 797px) 
-{
+@media only screen and (min-width: 450px) and (max-width: 797px) {
   body {
     background-size: 85%;
     background-position: 50% 68px;
   }
-  
+
   h1 {
     font-size: 54px;
     padding-bottom: 26px;
@@ -336,11 +337,11 @@ and (max-width: 797px)
     margin-top: 5px;
     margin-left: -5px;
   }
-  
+
   .login-container {
-  top: 0px;
-  width: 75%;
-  border: 1px solid rgba(183, 171, 214, 0.66);
+    top: 0px;
+    width: 75%;
+    border: 1px solid rgba(183, 171, 214, 0.66);
   }
 
   .nav-container li {
@@ -349,9 +350,12 @@ and (max-width: 797px)
     padding: 35px 16px 0px 0px;
   }
 
- .update-container, .entry-container, .post-container, .response-container {
-   width: 70%;
-   border: 1px solid rgba(183, 171, 214, 0.66);
+  .update-container,
+  .entry-container,
+  .post-container,
+  .response-container {
+    width: 70%;
+    border: 1px solid rgba(183, 171, 214, 0.66);
   }
 
   .entry-container {
@@ -371,86 +375,93 @@ and (max-width: 797px)
     font-family: "Mukta", sans-serif;
     font-size: 18px;
     padding-right: 10px;
+  }
 
+  .login-container input {
+    width: 75%;
+  }
+
+  .button {
+    width: 75%;
   }
 }
 
-.login-container input {
-  width: 75%;
-}
+@media only screen and (min-width: 320px) and (max-width: 449.9px) {
+  body {
+    background-size: 88%;
+    background-position: 50% 75px;
+  }
 
-.button {
-  width: 75%;
-}
+  h1 {
+    font-size: 54px;
+    padding-bottom: 26px;
+    margin-top: 78px;
+  }
 
+  h3 {
+    font-size: 36px;
+  }
 
-@media only screen 
-and (min-width: 320px) 
-and (max-width: 449.9px) {
-    body {
-      background-size: 88%;
-      background-position: 50% 75px;
-    }
-    
-    h1 {
-      font-size: 54px;
-      padding-bottom: 26px;
-      margin-top: 78px;
-    }
-  
-    h3 {
-      font-size: 36px;
-    }
-  
-    h4 {
-      font-size: 28px;
-    }
+  h4 {
+    font-size: 28px;
+  }
 
-    h2 {
-      font-size: 35px;
-      top: 5px;
-      display: block;
-      padding-left: 15px;
-    }
+  h2 {
+    font-size: 35px;
+    top: 5px;
+    display: block;
+    padding-left: 15px;
+  }
 
-    .login-container {
+  .login-container {
     top: 0px;
     width: 75%;
     border: 1px solid rgba(183, 171, 214, 0.66);
     padding: 5px 5px 5px 5px;
-    }
-  
-    .nav-container {
-      padding-top: 10px;
-    }
+  }
 
-    .nav-container li {
-      margin-top: -10px;
-    }
-  
-   .update-container, .entry-container, .post-container, .response-container {
-     width: 75%;
-     border: 1px solid rgba(183, 171, 214, 0.66);
-     top: 5px;
-     padding: 5px 10px 10px 10px;
-    }
-  
-    .entry-container {
-      margin-bottom: 36px;
-    }
-    
-    .action-title {
-      width: 75%;
-      padding-bottom: 6px;
-      top: 5px;
-    }
-  
-    .post-field {
-      width: 75%;
-    }
-  
-    .menu-item {
-      font-family: "Mukta", sans-serif;
-      font-size: 18px;  
-    }
+  .nav-container {
+    padding-top: 10px;
+  }
+
+  .nav-container li {
+    margin-top: -10px;
+  }
+
+  .update-container,
+  .entry-container,
+  .post-container,
+  .response-container {
+    width: 75%;
+    border: 1px solid rgba(183, 171, 214, 0.66);
+    top: 5px;
+    padding: 5px 10px 10px 10px;
+  }
+
+  .entry-container {
+    margin-bottom: 36px;
+  }
+
+  .action-title {
+    width: 75%;
+    padding-bottom: 6px;
+    top: 5px;
+  }
+
+  .post-field {
+    width: 75%;
+  }
+
+  .menu-item {
+    font-family: "Mukta", sans-serif;
+    font-size: 18px;
+  }
+
+  .login-container input {
+    width: 75%;
+  }
+
+  .button {
+    width: 75%;
+  }
 }
