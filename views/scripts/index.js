@@ -39,7 +39,7 @@ window.addEventListener('popstate', function (event) {
   }
 });
 
-// Client storage
+// Client-side storage
 
 const ENTRY_INFO = [];
 
@@ -152,6 +152,8 @@ function watchPost() {
   });
 }
 
+// Response once successfully posted
+
 function newPostResponse() {
   $('h3').text(' Post created successfully');
   historyAPI.historyStateResponse();
@@ -176,7 +178,7 @@ function showViewAll() {
   $('h3').text('Journal Entries');
 }
 
-// Displays API response
+// View all: displays API response
 
 function getAllEntriesSuccess(res) {
   $('#view-all-page').html('');
@@ -216,7 +218,7 @@ function findPostForUpdate(id) {
   sendPostForUpdate(obj, id);
 }
 
-// Assign variables of existing entry
+// Assign variables from existing entry
 
 function sendPostForUpdate(entry, id) {
   let title = entry.title;
@@ -241,7 +243,7 @@ function watchSaveEntry() {
   });
 }
 
-// Send updated info to post update
+// Send updated info to API to post update
 
 function getUpdateValues(id) {
   const obj = ENTRY_INFO.find(function(o) {
@@ -263,7 +265,6 @@ function viewUpdatedPost(entry, id) {
   updateENTRY_INFO(entry, id);
   templates.generateUpdateTemplate(entry, id);
 }
-
 
 // Delete post
 
@@ -310,7 +311,7 @@ function watchSignOut() {
   });
 }
 
-// Toggles successful response links
+// Toggles successful (delete/update) response view
 
 function hideResponseLinks() {
   $('.response-container').addClass('hidden');

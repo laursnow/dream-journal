@@ -1,6 +1,6 @@
 /* global $ */
 
-// Using history API to have functioning bakc & forward buttons
+// Using history API to have functioning back & forward buttons
 // Functions in this file assign history states to certain actions
 
 'use strict';
