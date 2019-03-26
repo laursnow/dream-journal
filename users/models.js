@@ -20,8 +20,7 @@ var usernameValidator = [
 var emailValidator = [
   validate({
     validator: 'isEmail',
-    message: 'Please enter valid e-mail',
-    passIfEmpty: true
+    message: 'Please enter valid e-mail'
   })
 ];
 
@@ -43,6 +42,7 @@ const UserSchema = mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
+    required: true,
     validate: emailValidator
   }},
 { collection: 'users'});

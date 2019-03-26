@@ -14,7 +14,6 @@ describe('/user endpoints', function() {
   const password = 'examplePass';
   const email = 'email@email.com';
 
-
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });
@@ -42,6 +41,23 @@ describe('/user endpoints', function() {
             expect(res.body.reason).to.equal('ValidationError');
             expect(res.body.message).to.equal('Missing field');
             expect(res.body.location).to.equal('username');
+          })
+          .catch(err => {
+            if (err instanceof chai.AssertionError) {
+              throw err;
+            }
+          });
+      });
+      it('Should reject users with missing email', function() {
+        return chai
+          .request(app)
+          .post('/users')
+          .send({
+            username,
+            password
+          })
+          .then((res) => {
+            expect(res).to.have.status(412);
           })
           .catch(err => {
             if (err instanceof chai.AssertionError) {
@@ -178,13 +194,37 @@ describe('/user endpoints', function() {
             chai.request(app).post('/users').send({
               username,
               password,
-              email
+              email: 'email2@email.com'
             })
           )
           .then((res) => {
             expect(res).to.have.status(422);
             expect(res.body.reason).to.equal('ValidationError');
             expect(res.body.location).to.equal('username');
+          })
+          .catch(err => {
+            if (err instanceof chai.AssertionError) {
+              throw err;
+            }
+          });
+      });
+      it('Should reject users with duplicate email', function() {
+        return User.create({
+          username: 'exampleuser2',
+          password,
+          email
+        })
+          .then(() =>
+            chai.request(app).post('/users').send({
+              username,
+              password,
+              email
+            })
+          )
+          .then((res) => {
+            expect(res).to.have.status(422);
+            expect(res.body.reason).to.equal('ValidationError');
+            expect(res.body.location).to.equal('email');
           })
           .catch(err => {
             if (err instanceof chai.AssertionError) {
