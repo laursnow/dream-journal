@@ -57,7 +57,10 @@ describe('/user endpoints', function() {
             password
           })
           .then((res) => {
-            expect(res).to.have.status(412);
+            expect(res).to.have.status(422);
+            expect(res.body.reason).to.equal('ValidationError');
+            expect(res.body.message).to.equal('Missing field');
+            expect(res.body.location).to.equal('email');
           })
           .catch(err => {
             if (err instanceof chai.AssertionError) {

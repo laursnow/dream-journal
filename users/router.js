@@ -6,7 +6,7 @@ const jsonParser = bodyParser.json();
 const {User} = require('./models');
 
 userRouter.post('/', jsonParser, (req, res) => {
-  const requiredFields = ['username', 'password'];
+  const requiredFields = ['username', 'password', 'email'];
   const missingField = requiredFields.find(field => !(field in req.body));
   if (missingField) {
     return res.status(422).json({
@@ -56,7 +56,7 @@ userRouter.post('/', jsonParser, (req, res) => {
       return User.find({email})
         .count()
         .then(count => {
-          if (email !== null && count > 0) {
+          if (count > 0) {
             return Promise.reject({
               code: 422,
               reason: 'ValidationError',
@@ -64,7 +64,6 @@ userRouter.post('/', jsonParser, (req, res) => {
               location: 'email'
             });
           }
-
           return User.hashPassword(password)
             .then(hash => {
               return User.create({
@@ -83,7 +82,7 @@ userRouter.post('/', jsonParser, (req, res) => {
               }
               res.status(500).json({code: 500, message: 'Internal server error'});
             });
-        });        
+        });      
     })
     .catch(err => {
       if (err.reason === 'ValidationError') {

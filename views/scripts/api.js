@@ -28,6 +28,7 @@ const api = (function() {
         location.reload(true);
       },
       error: function registerAlert(err) {
+        console.log(err);
         let error = JSON.parse(err.responseText);
         try {
           if (error.code == '422') {
@@ -45,6 +46,9 @@ const api = (function() {
             );
           } else if (error.includes('email: Please enter valid e-mail')) {
             alert('Please enter valid e-mail.');
+          }
+          else if (error.includes('email: Path `email` is required.')) {
+            alert('Please enter a valid e-mail.');
           }    
         } catch(err) {
           alert('Something went wrong. Please try again.');
